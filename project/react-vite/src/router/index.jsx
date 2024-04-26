@@ -4,6 +4,7 @@ import SignupFormPage from '../components/SignupFormPage';
 import Layout from './Layout';
 import ClothingList from '../components/ClothingList/ClothingList';
 import ClothingDetails from '../components/ClothingDetails/ClothingDetails';
+import UserClothing from '../components/UserClothing/UserClothing';
 
 export const router = createBrowserRouter([
   {
@@ -24,6 +25,10 @@ export const router = createBrowserRouter([
       {
         path: "/clothing/:clothingId",
         element: <ClothingDetails />,
+      },
+      {
+        path: "user/current/clothing",
+        element: <UserClothing />
       },
     ],
   },

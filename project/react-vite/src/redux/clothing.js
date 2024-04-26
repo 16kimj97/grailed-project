@@ -17,6 +17,7 @@ export const updateClothing = clothing => ({
     payload: clothing
 })
 
+
 export const thunkFetchClothingById = (clothingId) => async dispatch => {
     const res = await fetch(`/api/clothing/${clothingId}`);
 
