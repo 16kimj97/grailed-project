@@ -1,0 +1,71 @@
+{
+  "hash": "9b99f247",
+  "browserHash": "6433f3e4",
+  "optimized": {
+    "react": {
+      "src": "../../node_modules/react/index.js",
+      "file": "react.js",
+      "fileHash": "54a113af",
+      "needsInterop": true
+    },
+    "react-dom/client": {
+      "src": "../../node_modules/react-dom/client.js",
+      "file": "react-dom_client.js",
+      "fileHash": "b925eb4f",
+      "needsInterop": true
+    },
+    "react-redux": {
+      "src": "../../node_modules/react-redux/es/index.js",
+      "file": "react-redux.js",
+      "fileHash": "941e5faf",
+      "needsInterop": false
+    },
+    "react-router-dom": {
+      "src": "../../node_modules/react-router-dom/dist/index.js",
+      "file": "react-router-dom.js",
+      "fileHash": "bd82befe",
+      "needsInterop": false
+    },
+    "redux": {
+      "src": "../../node_modules/redux/es/redux.js",
+      "file": "redux.js",
+      "fileHash": "a840ee17",
+      "needsInterop": false
+    },
+    "redux-thunk": {
+      "src": "../../node_modules/redux-thunk/es/index.js",
+      "file": "redux-thunk.js",
+      "fileHash": "b6580f6c",
+      "needsInterop": false
+    },
+    "redux-logger": {
+      "src": "../../node_modules/redux-logger/dist/redux-logger.js",
+      "file": "redux-logger.js",
+      "fileHash": "738ab270",
+      "needsInterop": true
+    },
+    "react-dom": {
+      "src": "../../node_modules/react-dom/index.js",
+      "file": "react-dom.js",
+      "fileHash": "688f79e3",
+      "needsInterop": true
+    },
+    "react-icons/fa": {
+      "src": "../../node_modules/react-icons/fa/index.mjs",
+      "file": "react-icons_fa.js",
+      "fileHash": "dc54a700",
+      "needsInterop": false
+    }
+  },
+  "chunks": {
+    "chunk-D5SJRT53": {
+      "file": "chunk-D5SJRT53.js"
+    },
+    "chunk-ZAUFE7H7": {
+      "file": "chunk-ZAUFE7H7.js"
+    },
+    "chunk-UXIASGQL": {
+      "file": "chunk-UXIASGQL.js"
+    }
+  }
+}
