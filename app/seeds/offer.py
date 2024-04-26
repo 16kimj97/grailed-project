@@ -83,7 +83,7 @@ def seed_offers():
 
 def undo_offers():
     if environment == "production":
-        db.session.execute(f"TRUNCATE table {SCHEMA}.comments RESTART IDENTITY CASCADE;")
+        db.session.execute(f"TRUNCATE table {SCHEMA}.offers RESTART IDENTITY CASCADE;")
     else:
         db.session.execute(text("DELETE FROM offers"))
 

@@ -40,14 +40,14 @@ export const thunkFetchClothing = () => async dispatch => {
 export const thunkUpdateClothing = (clothing, id) =>  async dispatch => {
     const res = await fetch(`/api/clothings/${id}`,{
         method: 'PUT',
-        body: song
+        body: clothing
     })
 
-    if (!Response.ok) {
+    if (!res.ok) {
         throw new Error('Failed to update the item')
     }
 
-    const updatedClothing = await response.json();
+    const updatedClothing = await res.json();
     dispatch(updateClothing(updatedClothing))
     return updatedClothing
 }

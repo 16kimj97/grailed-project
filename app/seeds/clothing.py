@@ -22,7 +22,7 @@ def seed_clothing():
 
 def undo_clothing():
     if environment == "production":
-        db.session.execute(f"TRUNCATE table {SCHEMA}.comments RESTART IDENTITY CASCADE;")
+        db.session.execute(f"TRUNCATE table {SCHEMA}.clothing RESTART IDENTITY CASCADE;")
     else:
         db.session.execute(text("DELETE FROM clothing"))
 
