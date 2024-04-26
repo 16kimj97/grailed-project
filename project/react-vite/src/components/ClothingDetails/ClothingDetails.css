@@ -1,0 +1,52 @@
+.clothing-details {
+    font-family: Arial, sans-serif;
+    border: 1px solid #ccc;
+    padding: 20px;
+    margin: 20px;
+    background-color: #f9f9f9;
+}
+
+.clothing-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.clothing-status {
+    font-size: 0.9rem;
+    color: #5cb85c;
+    background-color: #eff5ef;
+    padding: 3px 8px;
+    border-radius: 4px;
+}
+
+.clothing-body {
+    margin-top: 20px;
+}
+
+.clothing-info {
+    font-size: 0.9rem;
+    color: #333;
+}
+
+.clothing-info span {
+    margin-right: 20px;
+}
+
+.clothing-price {
+    margin-top: 10px;
+    font-weight: bold;
+    color: #de4d4d;
+}
+
+.clothing-date {
+    margin-top: 10px;
+    font-size: 0.8rem;
+    color: #777;
+}
+
+.clothing-loading {
+    text-align: center;
+    font-size: 1.2rem;
+    padding: 50px;
+}

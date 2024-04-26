@@ -48,7 +48,7 @@ def delete_clothing(clothingId):
         return {"message": "no clothing"}
 
     if current_user.id != clothing.user_id:
-        return {"message": "your not the owner of this song"}
+        return {"message": "your not the owner of this clothing"}
 
     db.session.delete(clothing)
     db.session.commit()

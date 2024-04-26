@@ -13,7 +13,6 @@ class Clothing(db.Model):
     title = db.Column(db.String(100), nullable=False)
     description = db.Column(db.Text, nullable=False)
     price = db.Column(db.Numeric(10, 2), nullable=False)
-    # category_id = db.Column(db.Integer, db.ForeignKey('category.id'), nullable=False)
     size = db.Column(db.String(10), nullable=False)
     brand = db.Column(db.String(50), nullable=False)
     condition = db.Column(db.String(50), nullable=False)
@@ -31,7 +30,6 @@ class Clothing(db.Model):
             'title': self.title,
             'description': self.description,
             'price': str(self.price),
-            'category_id': self.category_id,
             'size': self.size,
             'brand': self.brand,
             'condition': self.condition,
