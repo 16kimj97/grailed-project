@@ -1,7 +1,7 @@
 import { NavLink } from "react-router-dom";
 import ProfileButton from "./ProfileButton";
 import "./Navigation.css";
-import gif from '../../../dist/grailed.gif';
+import grailedGif from '../../images/grailed.gif';
 
 function Navigation() {
   return (
@@ -10,7 +10,7 @@ function Navigation() {
         <ul className="nav-list">
           <li className="nav-item">
             <NavLink to="/">
-              <img className='homeImg' src={gif} alt='Home image'></img>
+              <img className='homeImg' src={grailedGif} alt='Home image'></img>
             </NavLink>
           </li>
           <li className="nav-item">
