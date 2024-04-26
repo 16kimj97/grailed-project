@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { useParams } from 'react-router-dom';
 import { thunkFetchClothingById } from '../../redux/clothing';
@@ -13,7 +13,7 @@ const ClothingDetails = () => {
         if (clothingId) {
             dispatch(thunkFetchClothingById(parsedId));
         }
-    }, [dispatch, clothingId]);
+    }, [dispatch, clothingId, parsedId]);
 
     const clothing = useSelector(state => state.clothing[parsedId]);
 

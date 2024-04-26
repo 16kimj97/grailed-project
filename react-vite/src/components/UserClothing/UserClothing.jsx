@@ -15,7 +15,7 @@ const UserClothing = () => {
 
     return (
         <div className="user-clothing-container">
-            {clothes.map((item) => (
+            {clothing?.map((item) => (
                 <div key={item.id} className="clothing-item">
                     <h3>{item.title}</h3>
                     <img src={item.images} alt={`image for clothing item`} />
