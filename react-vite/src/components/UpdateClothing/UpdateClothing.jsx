@@ -6,10 +6,10 @@ import './UpdateClothing.css';
 import { ToastContainer, toast } from "react-toastify";
 
 const UpdateClothing = () => {
-    const { clothingId } = useParams();
+    const { itemId } = useParams();
     const dispatch = useDispatch();
     const navigate = useNavigate();
-    const parsedId = parseInt(clothingId);
+    const parsedId = parseInt(itemId);
     const clothing = useSelector(state => state.clothing[parsedId]);
     const [title, setTitle] = useState('');
     const [description, setDescription] = useState('');
@@ -20,8 +20,8 @@ const UpdateClothing = () => {
     const [images, setImages] = useState('');
     const [dateListed, setDateListed] = useState('');
     const [status, setStatus] = useState('');
-    const [offers, setOffers] = useState('');
     const [error, setError] = useState({});
+    console.log("================>", clothing)
 
     useEffect(() => {
         if (parsedId) {
@@ -40,9 +40,22 @@ const UpdateClothing = () => {
             setImages(clothing.images || '');
             setDateListed(clothing.date_listed || '');
             setStatus(clothing.status || '');
-            setOffers(clothing.offers || '');
         }
     }, [clothing]);
+
+    useEffect(() => {
+        const errObj = {};
+        if (!title) errObj.title = "Title required";
+        if (!description) errObj.description = "Description required";
+        if (!price) errObj.price = "Price required";
+        if (!size) errObj.size = "Size required";
+        if (!brand) errObj.brand = "Brand required";
+        if (!condition) errObj.condition = "Condition required";
+        if (!dateListed) errObj.dateListed = "Date listed required";
+        if (!status) errObj.status = "Status required";
+
+        setError(errObj);
+    }, [title, description, price, size, brand, condition, dateListed, status]);
 
     const handleChange = (e) => {
         const { name, value } = e.target;
@@ -74,45 +87,29 @@ const UpdateClothing = () => {
             case 'status':
                 setStatus(value);
                 break;
-            case 'offers':
-                setOffers(value);
-                break;
             default:
                 break;
         }
     };
 
-    useEffect(() => {
-        const errObj = {}
-        if (!title.length) errObj.title = "Title required";
-        if (!description.length) errObj.description = "Description required";
-        if (!price) errObj.price = "Price required";
-        if (!size.length) errObj.size = "Size required";
-        if (!brand.length) errObj.brand = "Brand required";
-        if (!condition.length) errObj.condition = "Condition required";
-        if (!dateListed) errObj.dateListed = "Date listed required";
-        if (!status.length) errObj.status = "Status required";
-        if (!offers.length) errObj.offers = "Offers required";
-
-        setError(errObj);
-    }, [title, description, price, size, brand, condition, dateListed, status, offers]);
-
     const handleSubmit = async (e) => {
         e.preventDefault();
         if (Object.keys(error).length === 0) {
-            const updatedClothing = await dispatch(thunkUpdateClothing({
-                id: parsedId,
-                title,
-                description,
-                price,
-                size,
-                brand,
-                condition,
-                images,
-                date_listed: dateListed,
-                status,
-                offers
-            }));
+            const formData = new FormData();
+            formData.append('id', parsedId);
+            formData.append('title', title);
+            formData.append('description', description);
+            formData.append('price', price);
+            formData.append('size', size);
+            formData.append('brand', brand);
+            formData.append('condition', condition);
+            formData.append('date_listed', dateListed);
+            formData.append('status', status);
+            images.forEach((image) => {
+                formData.append('images', image);
+            });
+
+            const updatedClothing = await dispatch(thunkUpdateClothing(formData));
             dispatch(thunkFetchClothing());
             toast.success("Successfully updated clothing", {
                 onClose: () => navigate(`/`)
@@ -121,6 +118,7 @@ const UpdateClothing = () => {
             toast.error("Please fill in all the required fields.");
         }
     };
+        console.log("++++++++++++++>", title)
 
     return (
         <div className="update-clothing-form">
@@ -161,10 +159,6 @@ const UpdateClothing = () => {
                 <label htmlFor="status">Status:</label>
                 <input type="text" id="status" name="status" value={status} onChange={handleChange} />
                 {error.status && <span className="error">{error.status}</span>}
-
-                <label htmlFor="offers">Offers:</label>
-                <input type="text" id="offers" name="offers" value={offers} onChange={handleChange} />
-                {error.offers && <span className="error">{error.offers}</span>}
 
                 <button type="submit">Update Clothing</button>
             </form>
