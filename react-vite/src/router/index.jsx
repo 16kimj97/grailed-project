@@ -6,6 +6,7 @@ import ClothingList from '../components/ClothingList/ClothingList';
 import ClothingDetails from '../components/ClothingDetails/ClothingDetails';
 import UserClothing from '../components/UserClothing/UserClothing';
 import UpdateClothing from '../components/UpdateClothing/UpdateClothing';
+import CreateClothing from '../components/CreateClothing/CreateClothing';
 
 export const router = createBrowserRouter([
   {
@@ -34,6 +35,10 @@ export const router = createBrowserRouter([
       {
         path:"/update/:itemId",
         element: <UpdateClothing />
+      },
+      {
+        path:'/clothing/new',
+        element: <CreateClothing />
       }
     ],
   },

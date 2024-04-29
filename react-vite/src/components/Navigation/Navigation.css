@@ -3,6 +3,10 @@
   padding: 0;
 }
 
+.profile-container{
+  list-style-type: none;
+}
+
 .navigation {
   background-color: #333;
   color: white;
@@ -26,7 +30,17 @@
 
 .nav-item {
   margin-right: 30px;
+  font-size: 1.5em
 }
+
+.nav-item button {
+  background: none;
+  border: none;
+  font-size: 35px;
+  cursor: pointer;
+  color: #fff;
+}
+
 
 .nav-item:last-child {
   margin-right: 0;
@@ -49,13 +63,7 @@
   color: white;
 }
 
-.profile-dropdown {
-  margin: 0;
-  list-style-type: none;
-  display: flex;
-  flex-direction: column;
-  gap: 5px;
-}
+
 .profile-dropdown li{
   font-weight: bold;
   display: flex;
@@ -76,4 +84,18 @@
   width : 150px;
   height: 100%;
   margin-left: 40px;
+}
+
+
+.nav-item {
+  font-size: 1.2em;
+}
+
+.nav-item a {
+  color: #fff;
+  text-decoration: none;
+}
+
+.nav-item a:hover {
+    color: #f39c12;
 }

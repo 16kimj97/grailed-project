@@ -44,7 +44,7 @@ body {
 }
 
 .update-button {
-    background-color: red;
+    background-color: blue;
     color: white;
     max-width: 85px;
     padding: 5px 5px;
@@ -55,5 +55,27 @@ body {
     display: inline-block;
     cursor: pointer;
     margin-left: 12px;
+    margin-top: 15px;
+}
 
+.delete-button {
+    list-style-type: none;
+    background-color: red;
+    color: white;
+    max-width: 85px;
+    padding: 9px 13px;
+    border: none;
+    border-radius: 5px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    cursor: pointer;
+    margin-left: 12px;
+    margin-top: 15px;
+}
+
+
+.button-container {
+    display: flex;
+    align-items: center;
 }
