@@ -1,3 +1,15 @@
+
+.Toastify__toast-container {
+  width: auto;
+  padding: 8px;
+}
+
+.Toastify__toast {
+  min-height: 32px;
+  padding: 8px 12px;
+  font-size: 14px;
+}
+
 .update-clothing-form {
     max-width: 600px;
     margin: 0 auto;

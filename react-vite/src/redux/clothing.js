@@ -38,7 +38,7 @@ export const thunkFetchClothing = () => async dispatch => {
 }
 
 export const thunkUpdateClothing = (clothing, id) =>  async dispatch => {
-    const res = await fetch(`/api/clothings/${id}`,{
+    const res = await fetch(`/api/clothing/${id}`,{
         method: 'PUT',
         body: clothing
     })

@@ -3,7 +3,6 @@ import { useParams, useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { thunkFetchClothingById, thunkUpdateClothing, thunkFetchClothing } from '../../redux/clothing';
 import './UpdateClothing.css';
-import { ToastContainer, toast } from "react-toastify";
 
 const UpdateClothing = () => {
     const { itemId } = useParams();
@@ -21,7 +20,6 @@ const UpdateClothing = () => {
     const [dateListed, setDateListed] = useState('');
     const [status, setStatus] = useState('');
     const [error, setError] = useState({});
-    console.log("================>", clothing)
 
     useEffect(() => {
         if (parsedId) {
@@ -105,24 +103,18 @@ const UpdateClothing = () => {
             formData.append('condition', condition);
             formData.append('date_listed', dateListed);
             formData.append('status', status);
-            images.forEach((image) => {
-                formData.append('images', image);
-            });
+            formData.append('images', images);
 
-            const updatedClothing = await dispatch(thunkUpdateClothing(formData));
+            const updatedClothing = await dispatch(thunkUpdateClothing(formData, parsedId));
             dispatch(thunkFetchClothing());
-            toast.success("Successfully updated clothing", {
-                onClose: () => navigate(`/`)
-            });
+            navigate(`/clothing/${parsedId}`);
         } else {
-            toast.error("Please fill in all the required fields.");
+            console.log("Form validation errors:", errObj);
         }
     };
-        console.log("++++++++++++++>", title)
 
     return (
         <div className="update-clothing-form">
-            <ToastContainer />
             <form onSubmit={handleSubmit}>
                 <label htmlFor="title">Title:</label>
                 <input type="text" id="title" name="title" value={title} onChange={handleChange} />
@@ -153,7 +145,7 @@ const UpdateClothing = () => {
                 {error.images && <span className="error">{error.images}</span>}
 
                 <label htmlFor="date_listed">Date Listed:</label>
-                <input type="text" id="date_listed" name="date_listed" value={dateListed} onChange={handleChange} />
+                <input type="date" id="date_listed" name="date_listed" value={dateListed} onChange={handleChange} />
                 {error.dateListed && <span className="error">{error.dateListed}</span>}
 
                 <label htmlFor="status">Status:</label>

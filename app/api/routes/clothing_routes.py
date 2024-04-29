@@ -82,6 +82,9 @@ def edit_clothing(clothingId):
 
         db.session.commit()
         return clothing.to_dict()
+    print(form.errors)
+    return jsonify({"message": "update failed"}), 400
+
 
 @clothing_routes.route('/<int:clothingId>')
 def get_clothing_details(clothingId):
