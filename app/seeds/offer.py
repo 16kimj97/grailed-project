@@ -1,4 +1,3 @@
-from .db import db
 from app.models import db, Offer, environment, SCHEMA
 from sqlalchemy import text
 

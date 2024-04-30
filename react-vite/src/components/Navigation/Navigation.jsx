@@ -18,6 +18,10 @@ function Navigation() {
                     <li className="nav-item">
                         <NavLink to="/clothing/new">Sell</NavLink>
                     </li>
+                    <li className="nav-item">
+                        <NavLink to="/current/offers">Sent Offers</NavLink>
+                    </li>
+
                 </ul>
                 <ul className="profile-container">
                     <li className="nav-item">

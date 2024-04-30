@@ -8,6 +8,7 @@ import UserClothing from '../components/UserClothing/UserClothing';
 import UpdateClothing from '../components/UpdateClothing/UpdateClothing';
 import CreateClothing from '../components/CreateClothing/CreateClothing';
 import ClothingCategory from '../components/ClothingList/ClothingCategory';
+import UserOffers from '../components/UserOffers/UserOffers';
 
 export const router = createBrowserRouter([
   {
@@ -52,6 +53,10 @@ export const router = createBrowserRouter([
       {
         path: "/clothing/unisex",
         element: <ClothingCategory gender="Unisex" />,
+      },
+      {
+        path: "/current/offers",
+        element: <UserOffers />
       },
     ],
   },
