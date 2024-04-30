@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { thunkCreateClothing } from "../../redux/clothing";
 import { useNavigate } from "react-router-dom";
-import './CreateClothing.css'
+import './CreateClothing.css';
 
 function CreateClothing() {
     const dispatch = useDispatch();
@@ -13,9 +13,9 @@ function CreateClothing() {
     const [size, setSize] = useState('');
     const [brand, setBrand] = useState('');
     const [condition, setCondition] = useState('');
-    const [images, setImages] = setState([]);
-    const [dateListed, setDateListed] = setState('');
-    const [gender, setGender] = setState('');
+    const [images, setImages] = useState([]);
+    const [dateListed, setDateListed] = useState('');
+    const [gender, setGender] = useState('');
     const [error, setError] = useState({});
 
     const user = useSelector(state => state.session['user']);
@@ -33,7 +33,7 @@ function CreateClothing() {
         if (!brand.length) errObj.brand = "Brand required";
         if (!condition.length) errObj.condition = "Condition required";
         if (!dateListed) errObj.dateListed = "Date listed required";
-        if (!gender) errObj.gender = "Gender required";  // Check if gender is provided
+        if (!gender) errObj.gender = "Gender required";
         if (!images.length) errObj.images = "At least one image required";
         setError(errObj);
     }, [title, description, price, size, brand, condition, dateListed, gender, images]);
@@ -49,8 +49,8 @@ function CreateClothing() {
             formData.append('brand', brand);
             formData.append('condition', condition);
             formData.append('date_listed', dateListed);
-            formData.append('gender', gender);  // Append gender to form data
-            images.forEach((img, index) => formData.append('images', img));
+            formData.append('gender', gender);
+            images.forEach(img => formData.append('images', img));
 
             const newClothing = await dispatch(thunkCreateClothing(formData));
             navigate(`/clothing/${newClothing.id}`);
@@ -71,17 +71,17 @@ function CreateClothing() {
 
                 <div className="form-group">
                     <label>Description:</label>
-                    <textarea value={description} onChange={(e) => setDescription(e.target.value)} />
+                    <textarea value={description} onChange={(e) => setDescription(e.targetug.value)} />
                     {error.description && <div className="error">{error.description}</div>}
                 </div>
 
-                <div class="form-group">
+                <div className="form-group">
                     <label>Price:</label>
                     <input type="number" value={price} onChange={(e) => setPrice(e.target.value)} />
-                    {error.price && <div class="error">{error.price}</div>}
+                    {error.price && <div className="error">{error.price}</div>}
                 </div>
 
-                <div class="form-group">
+                <div className="form-group">
                     <label>Size:</label>
                     <select id="size" name="size" value={size} onChange={(e) => setSize(e.target.value)}>
                         <option value="XS">XS</option>
@@ -94,13 +94,13 @@ function CreateClothing() {
                     {error.size && <div className="error">{error.size}</div>}
                 </div>
 
-                <div class="form-group">
+                <div className="form-group">
                     <label>Brand:</label>
                     <input type="text" value={brand} onChange={(e) => setBrand(e.target.value)} />
                     {error.brand && <div className="error">{error.brand}</div>}
                 </div>
 
-                <div class="form-group">
+                <div className="form-group">
                     <label>Condition:</label>
                     <select id="condition" name="condition" value={condition} onChange={(e) => setCondition(e.target.value)}>
                         <option value="New">New</option>
@@ -108,29 +108,29 @@ function CreateClothing() {
                         <option value="Used">Used</option>
                         <option value="Worn">Worn</option>
                     </select>
-                    {error.condition && <div class="error">{error.condition}</div>}
+                    {error.condition && <div className="error">{error.condition}</div>}
                 </div>
 
-                <div class="form-group">
+                <div className="form-group">
                     <label>Date Listed:</label>
                     <input type="date" value={dateListed} onChange={(e) => setDateListed(e.target.value)} />
-                    {error.dateListed && <div class="error">{error.dateListed}</div>}
+                    {error.dateListed && <div className="error">{error.dateListed}</div>}
                 </div>
 
-                <div class="form-group">
+                <div className="form-group">
                     <label>Gender:</label>
                     <select id="gender" name="gender" value={gender} onChange={(e) => setGender(e.target.value)}>
                         <option value="Menswear">Menswear</option>
                         <option value="Womenswear">Womenswear</option>
                         <option value="Unisex">Unisex</option>
                     </select>
-                    {error.gender && <div class="error">{error.gender}</div>}
+                    {error.gender && <div className="error">{error.gender}</div>}
                 </div>
 
-                <div class="form-group">
+                <div className="form-group">
                     <label>Images:</label>
-                    <input type="text" onChange={(e) => setImages([e.target.value])} />
-                    {error.images && <div class="error">{error.images}</div>}
+                    <input type="file" multiple onChange={(e) => setImages([...images, ...Array.from(e.target.files)])} />
+                    {error.images && <div className="error">{error.images}</div>}
                 </div>
 
                 <button type="submit">Create Clothing Item</button>

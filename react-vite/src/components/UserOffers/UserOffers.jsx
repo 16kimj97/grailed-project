@@ -47,7 +47,7 @@ const UserOffers = () => {
                                     <span>Brand: {clothing[offer.clothing_id].brand}</span>
                                     <span>Condition: {clothing[offer.clothing_id].condition}</span>
                                 </div>
-                                <div class="clothing-price">
+                                <div className="clothing-price">
                                     Price: ${clothing[offer.clothing_id].price}
                                 </div>
                                 {clothing[offer.clothing_id].images && (

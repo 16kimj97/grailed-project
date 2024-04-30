@@ -109,11 +109,11 @@ const UpdateClothing = () => {
             formData.append('gender', gender);
             formData.append('images', images);
 
-            const updatedClothing = await dispatch(thunkUpdateClothing(formData, parsedId));
+            await dispatch(thunkUpdateClothing(formData, parsedId));
             dispatch(thunkFetchClothing());
             navigate(`/clothing/${parsedId}`);
         } else {
-            console.log("Form validation errors:", errObj);
+            console.log("Form validation errors:", error);
         }
     };
 
@@ -158,14 +158,14 @@ const UpdateClothing = () => {
 
                 <label htmlFor="images">Images:</label>
                 <input type="text" id="images" name="images" value={images} onChange={handleChange} />
-                {error.images && <span class="error">{error.images}</span>}
+                {error.images && <span className="error">{error.images}</span>}
 
                 <label htmlFor="date_listed">Date Listed:</label>
                 <input type="date" id="date_listed" name="date_listed" value={dateListed} onChange={handleChange} />
-                {error.dateListed && <span class="error">{error.dateListed}</span>}
+                {error.dateListed && <span className="error">{error.dateListed}</span>}
 
                 <label htmlFor="gender">Gender:</label>
-                <select id="gender" name="gender" give={gender} onChange={handleChange}>
+                <select id="gender" name="gender" value={gender} onChange={handleChange}>
                     <option value="Menswear">Menswear</option>
                     <option value="Womenswear">Womenswear</option>
                     <option value="Unisex">Unisex</option>
@@ -176,13 +176,12 @@ const UpdateClothing = () => {
                     <option value="Available">Available</option>
                     <option value="Sold">Sold</option>
                 </select>
-                {error.status && <span class="error">{error.status}</span>}
+                {error.status && <span className="error">{error.status}</span>}
 
                 <button type="submit">Update Clothing</button>
             </form>
         </div>
     );
 };
-
 
 export default UpdateClothing;
