@@ -31,7 +31,7 @@ const UserOffers = () => {
 
     return (
         <div className="user-offers">
-            <h2>Your Offers</h2>
+        <h2 className="offers-heading">Sent Offers</h2>
             <div className="offers-list">
                 {offers && offers.map(offer => (
                     <div key={offer.id} className="offer-item">
