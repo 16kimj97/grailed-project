@@ -36,7 +36,7 @@ export const thunkCreateClothing = (clothing) => async dispatch => {
     })
     if(res.ok){
         const clothing = await res.json()
-        dispatch(updateClothing(clothing))
+        dispatch(createClothing(clothing))
         return clothing
     }
     else {

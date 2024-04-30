@@ -7,6 +7,7 @@ import ClothingDetails from '../components/ClothingDetails/ClothingDetails';
 import UserClothing from '../components/UserClothing/UserClothing';
 import UpdateClothing from '../components/UpdateClothing/UpdateClothing';
 import CreateClothing from '../components/CreateClothing/CreateClothing';
+import ClothingCategory from '../components/ClothingList/ClothingCategory';
 
 export const router = createBrowserRouter([
   {
@@ -30,16 +31,28 @@ export const router = createBrowserRouter([
       },
       {
         path: "/user/current/clothing",
-        element: <UserClothing />
+        element: <UserClothing />,
       },
       {
-        path:"/update/:itemId",
-        element: <UpdateClothing />
+        path: "/update/:itemId",
+        element: <UpdateClothing />,
       },
       {
-        path:'/clothing/new',
-        element: <CreateClothing />
-      }
+        path: "/clothing/new",
+        element: <CreateClothing />,
+      },
+      {
+        path: "/clothing/menswear",
+        element: <ClothingCategory gender="Menswear" />,
+      },
+      {
+        path: "/clothing/womenswear",
+        element: <ClothingCategory gender="Womenswear" />,
+      },
+      {
+        path: "/clothing/unisex",
+        element: <ClothingCategory gender="Unisex" />,
+      },
     ],
   },
 ]);

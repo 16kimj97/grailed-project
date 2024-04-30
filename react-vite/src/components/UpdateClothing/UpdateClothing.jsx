@@ -19,6 +19,7 @@ const UpdateClothing = () => {
     const [images, setImages] = useState('');
     const [dateListed, setDateListed] = useState('');
     const [status, setStatus] = useState('');
+    const [gender, setGender] = useState('');
     const [error, setError] = useState({});
 
     useEffect(() => {
@@ -38,6 +39,7 @@ const UpdateClothing = () => {
             setImages(clothing.images || '');
             setDateListed(clothing.date_listed || '');
             setStatus(clothing.status || '');
+            setGender(clothing.gender || '');
         }
     }, [clothing]);
 
@@ -46,14 +48,11 @@ const UpdateClothing = () => {
         if (!title) errObj.title = "Title required";
         if (!description) errObj.description = "Description required";
         if (!price) errObj.price = "Price required";
-        if (!size) errObj.size = "Size required";
         if (!brand) errObj.brand = "Brand required";
-        if (!condition) errObj.condition = "Condition required";
         if (!dateListed) errObj.dateListed = "Date listed required";
-        if (!status) errObj.status = "Status required";
 
         setError(errObj);
-    }, [title, description, price, size, brand, condition, dateListed, status]);
+    }, [title, description, price, brand, dateListed]);
 
     const handleChange = (e) => {
         const { name, value } = e.target;
@@ -85,6 +84,10 @@ const UpdateClothing = () => {
             case 'status':
                 setStatus(value);
                 break;
+            case 'gender':
+                setGender(value);
+                break;
+
             default:
                 break;
         }
@@ -103,6 +106,7 @@ const UpdateClothing = () => {
             formData.append('condition', condition);
             formData.append('date_listed', dateListed);
             formData.append('status', status);
+            formData.append('gender', gender);
             formData.append('images', images);
 
             const updatedClothing = await dispatch(thunkUpdateClothing(formData, parsedId));
@@ -121,15 +125,22 @@ const UpdateClothing = () => {
                 {error.title && <span className="error">{error.title}</span>}
 
                 <label htmlFor="description">Description:</label>
-                <input type="text" id="description" name="description" value={description} onChange={handleChange} />
+                <textarea id="description" name="description" value={description} onChange={handleChange} />
                 {error.description && <span className="error">{error.description}</span>}
 
                 <label htmlFor="price">Price:</label>
-                <input type="text" id="price" name="price" value={price} onChange={handleChange} />
+                <input type="number" id="price" name="price" value={price} onChange={handleChange} />
                 {error.price && <span className="error">{error.price}</span>}
 
                 <label htmlFor="size">Size:</label>
-                <input type="text" id="size" name="size" value={size} onChange={handleChange} />
+                <select id="size" name="size" value={size} onChange={handleChange}>
+                    <option value="XS">XS</option>
+                    <option value="S">S</option>
+                    <option value="M">M</option>
+                    <option value="L">L</option>
+                    <option value="XL">XL</option>
+                    <option value="XXL">XXL</option>
+                </select>
                 {error.size && <span className="error">{error.size}</span>}
 
                 <label htmlFor="brand">Brand:</label>
@@ -137,25 +148,41 @@ const UpdateClothing = () => {
                 {error.brand && <span className="error">{error.brand}</span>}
 
                 <label htmlFor="condition">Condition:</label>
-                <input type="text" id="condition" name="condition" value={condition} onChange={handleChange} />
+                <select id="condition" name="condition" value={condition} onChange={handleChange}>
+                    <option value="New">New</option>
+                    <option value="Like New">Like New</option>
+                    <option value="Used">Used</option>
+                    <option value="Worn">Worn</option>
+                </select>
                 {error.condition && <span className="error">{error.condition}</span>}
 
                 <label htmlFor="images">Images:</label>
                 <input type="text" id="images" name="images" value={images} onChange={handleChange} />
-                {error.images && <span className="error">{error.images}</span>}
+                {error.images && <span class="error">{error.images}</span>}
 
                 <label htmlFor="date_listed">Date Listed:</label>
                 <input type="date" id="date_listed" name="date_listed" value={dateListed} onChange={handleChange} />
-                {error.dateListed && <span className="error">{error.dateListed}</span>}
+                {error.dateListed && <span class="error">{error.dateListed}</span>}
+
+                <label htmlFor="gender">Gender:</label>
+                <select id="gender" name="gender" give={gender} onChange={handleChange}>
+                    <option value="Menswear">Menswear</option>
+                    <option value="Womenswear">Womenswear</option>
+                    <option value="Unisex">Unisex</option>
+                </select>
 
                 <label htmlFor="status">Status:</label>
-                <input type="text" id="status" name="status" value={status} onChange={handleChange} />
-                {error.status && <span className="error">{error.status}</span>}
+                <select id="status" name="status" value={status} onChange={handleChange}>
+                    <option value="Available">Available</option>
+                    <option value="Sold">Sold</option>
+                </select>
+                {error.status && <span class="error">{error.status}</span>}
 
                 <button type="submit">Update Clothing</button>
             </form>
         </div>
     );
 };
+
 
 export default UpdateClothing;
