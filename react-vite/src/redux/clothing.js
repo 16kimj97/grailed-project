@@ -1,6 +1,13 @@
 const FETCH_CLOTHING = 'FETCH_CLOTHING'
 const FETCH_CLOTHING_BY_ID = 'FETCH_CLOTHING_BY_ID'
 const UPDATE_CLOTHING = 'UPDATE_CLOTHING'
+const DELETE_CLOTHING = 'DELETE_CLOTHING'
+const CREATE_CLOTHING = 'CREATE_CLOTHING'
+
+export const createClothing = clothing => ({
+    type: CREATE_CLOTHING,
+    payload: clothing
+})
 
 export const fetchClothing = clothing => ({
     type: FETCH_CLOTHING,
@@ -17,6 +24,42 @@ export const updateClothing = clothing => ({
     payload: clothing
 })
 
+export const deleteClothing = clothingId => ({
+    type: DELETE_CLOTHING,
+    payload: clothingId
+})
+
+export const thunkCreateClothing = (clothing) => async dispatch => {
+    const res = await fetch('/api/clothing/new',{
+        method: 'POST',
+        body: clothing
+    })
+    if(res.ok){
+        const clothing = await res.json()
+        dispatch(createClothing(clothing))
+        return clothing
+    }
+    else {
+        return "Create Error"
+    }
+}
+
+export const thunkDeleteClothing = (clothingId) => async dispatch => {
+    const res = await fetch(`/api/clothing/${clothingId}`, {
+        method : 'DELETE',
+        headers: {
+            'Content-Type': 'application/json'
+        }
+    })
+    if(res.ok){
+        const confirmed = await res.json()
+        dispatch(deleteClothing(confirmed))
+        return confirmed
+    }
+    else {
+        return "delete error"
+    }
+}
 
 export const thunkFetchClothingById = (clothingId) => async dispatch => {
     const res = await fetch(`/api/clothing/${clothingId}`);
@@ -38,7 +81,7 @@ export const thunkFetchClothing = () => async dispatch => {
 }
 
 export const thunkUpdateClothing = (clothing, id) =>  async dispatch => {
-    const res = await fetch(`/api/clothings/${id}`,{
+    const res = await fetch(`/api/clothing/${id}`,{
         method: 'PUT',
         body: clothing
     })
@@ -70,6 +113,16 @@ const clothingReducer = (state = {}, action) => {
             const editClothingState = {...state}
             editClothingState[action.payload.id] = action.payload
             return editClothingState
+        }
+        case DELETE_CLOTHING: {
+            const newClothingState = {...state}
+            delete newClothingState[action.payload]
+            return newClothingState
+        }
+        case CREATE_CLOTHING: {
+            const newClothingState = {...state}
+            newClothingState[action.payload.id] = action.payload
+            return newClothingState
         }
         default:
             return state;

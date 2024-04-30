@@ -18,7 +18,8 @@ class Clothing(db.Model):
     condition = db.Column(db.String(50), nullable=False)
     images = db.Column(db.String(255), nullable=True)
     date_listed = db.Column(db.DateTime, nullable=False, default=datetime.utcnow)
-    status = db.Column(db.String(20), nullable=False)
+    status = db.Column(db.String(20), nullable=False, default="Available")
+    gender = db.Column(db.String(10), nullable=False, default="Unisex")
     offers = db.relationship('Offer', backref='clothing', lazy=True)
     reviews = db.relationship('Review', backref='clothing', lazy=True)
     wishlist_items = db.relationship('WishlistItem', backref='clothing', lazy=True)
@@ -35,5 +36,6 @@ class Clothing(db.Model):
             'condition': self.condition,
             'images': self.images,
             'date_listed': self.date_listed.isoformat(),
-            'status': self.status
+            'status': self.status,
+            'gender': self.gender
         }

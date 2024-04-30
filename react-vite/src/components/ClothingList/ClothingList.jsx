@@ -1,14 +1,13 @@
 import { useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { thunkFetchClothing } from '../../redux/clothing';
-import ClothingTile from './ClothingTile';
-import './ClothingList.css'
-import { Link } from 'react-router-dom'
-
+import ClothingCategory from './ClothingCategory';
+import { Routes, Route, Link } from 'react-router-dom';
+import './ClothingList.css';
+import homeImg from '../../images/homepage.jpg';
 
 const ClothingList = () => {
     const dispatch = useDispatch();
-    const clothing = useSelector(state => Object.values(state.clothing));
 
     useEffect(() => {
         dispatch(thunkFetchClothing());
@@ -16,18 +15,25 @@ const ClothingList = () => {
 
     return (
         <div className="clothing-list">
-            {clothing.length ? (
-                clothing.map(clothes => (
-                    <Link to={`/clothing/${clothes.id}`} key={clothes.id}>
-                        <ClothingTile clothes={clothes} />
-                    </Link>
-                ))
-            ) : (
-                <p>Loading clothing...</p>
-            )}
+            <img src={homeImg} className="clothing-image" alt="Homepage" />
+
+        <div className="image-text-overlay">
+            The Platform for Style
+            </div>
+
+            <nav className="category-nav">
+                <Link to="/clothing/menswear">Menswear</Link>
+                <Link to="/clothing/womenswear">Womenswear</Link>
+                <Link to="/clothing/unisex">Unisex</Link>
+            </nav>
+
+            <Routes>
+                <Route path="menswear" element={<ClothingCategory gender="Menswear" />} />
+                <Route path="womenswear" element={<ClothingCategory gender="Womenswear" />} />
+                <Route path="unisex" element={<ClothingCategory gender="Unisex" />} />
+            </Routes>
         </div>
     );
 };
 
-
-export default ClothingList
+export default ClothingList;
