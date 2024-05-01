@@ -26,7 +26,7 @@ export const thunkDeleteOffers = (offerId) => async dispatch => {
     }
 }
 
-export const thunkUpdateClothing = (offer, offerId) => async (dispatch) => {
+export const thunkUpdateOffer = (offer, offerId) => async (dispatch) => {
     const res = await fetch(`/api/offers/${offerId}`, {
         method: 'PUT',
         body: offer

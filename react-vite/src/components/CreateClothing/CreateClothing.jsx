@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { thunkCreateClothing } from "../../redux/clothing";
 import { useNavigate } from "react-router-dom";
-import './CreateClothing.css';
+import './CreateClothing.css'
 
 function CreateClothing() {
     const dispatch = useDispatch();
@@ -33,7 +33,7 @@ function CreateClothing() {
         if (!brand.length) errObj.brand = "Brand required";
         if (!condition.length) errObj.condition = "Condition required";
         if (!dateListed) errObj.dateListed = "Date listed required";
-        if (!gender) errObj.gender = "Gender required";
+        if (!gender) errObj.gender = "Gender required";  // Check if gender is provided
         if (!images.length) errObj.images = "At least one image required";
         setError(errObj);
     }, [title, description, price, size, brand, condition, dateListed, gender, images]);
@@ -49,8 +49,8 @@ function CreateClothing() {
             formData.append('brand', brand);
             formData.append('condition', condition);
             formData.append('date_listed', dateListed);
-            formData.append('gender', gender);
-            images.forEach(img => formData.append('images', img));
+            formData.append('gender', gender);  // Append gender to form data
+            images.forEach((img, index) => formData.append('images', img));
 
             const newClothing = await dispatch(thunkCreateClothing(formData));
             navigate(`/clothing/${newClothing.id}`);
@@ -71,7 +71,7 @@ function CreateClothing() {
 
                 <div className="form-group">
                     <label>Description:</label>
-                    <textarea value={description} onChange={(e) => setDescription(e.targetug.value)} />
+                    <textarea value={description} onChange={(e) => setDescription(e.target.value)} />
                     {error.description && <div className="error">{error.description}</div>}
                 </div>
 
@@ -129,7 +129,7 @@ function CreateClothing() {
 
                 <div className="form-group">
                     <label>Images:</label>
-                    <input type="file" multiple onChange={(e) => setImages([...images, ...Array.from(e.target.files)])} />
+                    <input type="text" onChange={(e) => setImages([e.target.value])} />
                     {error.images && <div className="error">{error.images}</div>}
                 </div>
 

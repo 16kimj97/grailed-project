@@ -61,6 +61,11 @@ const UserOffers = () => {
                                 modalComponent={<DeleteOffers offerId={offer.id} />}
                             />
                         </button>
+
+                        <Link to={`/update-offer/${offer.id}`}>
+                            Update
+                        </Link>
+
                     </div>
                 ))}
             </div>
