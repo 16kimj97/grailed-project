@@ -1,4 +1,10 @@
 const DELETE_OFFERS = 'DELETE_OFFERS'
+const UPDATE_OFFERS = 'UPDATE_OFFERS'
+
+export const updateOffers = offer => ({
+    type: UPDATE_OFFERS,
+    payload: offer
+})
 
 export const deleteOffers = offerId => ({
     type: DELETE_OFFERS,
@@ -16,6 +22,18 @@ export const thunkDeleteOffers = (offerId) => async dispatch => {
     if (res.ok){
         const offer = await res.json()
         dispatch(deleteOffers(offer))
+        return offer
+    }
+}
+
+export const thunkUpdateClothing = (offer, offerId) => async (dispatch) => {
+    const res = await fetch(`/api/offers/${offerId}`, {
+        method: 'PUT',
+        body: offer
+    })
+    if (res.ok){
+        const offer = await res.json()
+        dispatch(updateOffers(offer))
         return offer
     }
 }
