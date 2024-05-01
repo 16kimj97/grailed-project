@@ -2,7 +2,6 @@ from .db import db, environment, SCHEMA, add_prefix_for_prod
 from datetime import datetime
 
 class Clothing(db.Model):
-
     __tablename__ = "clothing"
 
     if environment == "production":
@@ -20,7 +19,7 @@ class Clothing(db.Model):
     date_listed = db.Column(db.DateTime, nullable=False, default=datetime.utcnow)
     status = db.Column(db.String(20), nullable=False, default="Available")
     gender = db.Column(db.String(10), nullable=False, default="Unisex")
-    offers = db.relationship('Offer', backref='clothing', lazy=True)
+    offers = db.relationship('Offer', backref='clothing', lazy=True, cascade="all, delete-orphan")  # Updated cascade option
     reviews = db.relationship('Review', backref='clothing', lazy=True)
     wishlist_items = db.relationship('WishlistItem', backref='clothing', lazy=True)
 

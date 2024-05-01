@@ -4,34 +4,28 @@ import { thunkFetchOffers } from "../../redux/user";
 import { thunkFetchClothingById } from "../../redux/clothing";
 import { Link } from "react-router-dom";
 import './UserOffers.css'
+import DeleteOffers from "./DeleteOffers/DeleteOffers";
+import OpenModalMenuItem from "../Navigation/OpenModalMenuItem";
 
 const UserOffers = () => {
     const dispatch = useDispatch();
     const offers = useSelector(state => state.user.offers);
-    console.log("=============>", offers)
-    // parsedId = parseInt(offers.clothing_id)
-    // console.log("PARSED ID", parsedId)
     const clothing = useSelector(state => state.clothing);
 
-
     useEffect(() => {
-        console.log("Dispatching thunkFetchOffers");
         dispatch(thunkFetchOffers());
     }, [dispatch]);
 
     useEffect(() => {
         if (offers) {
-            offers.forEach(offer => {
-                dispatch(thunkFetchClothingById(offer.clothing_id));
-            });
+            offers.forEach(offer => dispatch(thunkFetchClothingById(offer.clothing_id)));
         }
     }, [offers, dispatch]);
 
 
-
     return (
         <div className="user-offers">
-        <h2 className="offers-heading">Sent Offers</h2>
+            <h2 className="offers-heading">Sent Offers</h2>
             <div className="offers-list">
                 {offers && offers.map(offer => (
                     <div key={offer.id} className="offer-item">
@@ -60,6 +54,13 @@ const UserOffers = () => {
                                 </div>
                             </div>
                         )}
+
+                            <button className="delete-offers">
+                            <OpenModalMenuItem
+                                itemText="Delete"
+                                modalComponent={<DeleteOffers offerId={offer.id} />}
+                            />
+                        </button>
                     </div>
                 ))}
             </div>

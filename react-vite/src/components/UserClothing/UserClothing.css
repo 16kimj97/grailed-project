@@ -38,9 +38,10 @@ body {
     justify-content: center;
 }
 
-.item-image {
+.user-images {
     width: 300px;
-    height: 350px;
+    height: 800px;
+    object-fit: cover; /* Maintain aspect ratio and cover the container */
 }
 
 .update-button {

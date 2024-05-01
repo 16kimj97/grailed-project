@@ -1,0 +1,40 @@
+.delete-offers {
+    background-color: #fff;
+    border-radius: 10px;
+    padding: 20px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    width: 300px;
+}
+
+.delete-offers h1 {
+    font-size: 1.5rem;
+    color: #333;
+    margin-bottom: 20px;
+}
+
+.delete-offers .confirm-offer {
+    display: flex;
+    justify-content: space-between;
+}
+
+.delete-offers #accept-offer, .delete-offers #decline-offer {
+    background-color: #ff4d4d;
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.delete-offers #accept-offer:hover, .delete-offers #decline-offer:hover {
+    background-color: #ff1a1a;
+}
+
+.delete-offers #decline-offer {
+    background-color: #4d4dff;
+}
+
+.delete-offers #decline-offer:hover {
+    background-color: #1a1aff;
+}

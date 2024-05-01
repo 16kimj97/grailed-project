@@ -15,7 +15,7 @@ function DeleteClothing({ clothingId }) {
         closeModal()
     }
     return (
-        <div id ="deleteModal" className='delete-modal'>
+        <div id="deleteModal" className='delete-clothing'> {/* Updated className */}
             <h1>Do you want to delete your listing?</h1>
 
             <div className="confirm">

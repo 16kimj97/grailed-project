@@ -23,8 +23,8 @@ const UserClothing = () => {
             {clothing?.map((item) => (
                 <div key={item.id} className="clothing-item">
                     <div className="item-image-link">
-                        <Link to={`/clothing/${item.id}`} className="item-image-link">
-                            <img src={item.images} alt={`Image for clothing item`} className="item-image" />
+                        <Link to={`/clothing/${item.id}`} className="user-clothing-image">
+                            <img src={item.images} alt={`Image for clothing item`} className="user-images" />
                         </Link>
                     </div>
                     <div className="item-description">
