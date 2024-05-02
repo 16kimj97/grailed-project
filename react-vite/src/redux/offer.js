@@ -47,12 +47,16 @@ export const thunkUpdateOffer = (offer, offerId) => async (dispatch) => {
         headers: {
             'Content-Type': 'application/json',
         },
+        body: JSON.stringify(offer)
     });
 
     if (res.ok) {
         const updatedOffer = await res.json();
         dispatch(updateOffers(updatedOffer));
         return updatedOffer;
+    } else {
+        const error = await res.json();
+        console.error("Error:", error);
     }
 };
 

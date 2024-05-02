@@ -46,7 +46,7 @@ def delete_offer(itemId):
     return jsonify({"message": "Offer deleted successfully"})
 
 @offer_routes.route('/<int:itemId>', methods=['PUT'])
-@login_required
+# @login_required
 def update_offer(itemId):
     offer = Offer.query.get(itemId)
 
@@ -60,8 +60,10 @@ def update_offer(itemId):
     form['csrf_token'].data = request.cookies['csrf_token']
 
     if form.validate_on_submit():
-        offer.offer_price = form.data['offer_price']
-        offer.shipping_details = form.data['shipping_details']
+        if 'offer_price' in form.data:
+            offer.offer_price = form.data['offer_price']
+        if 'shipping_details' in form.data:
+            offer.shipping_details = form.data['shipping_details']
 
         db.session.commit()
         return jsonify(offer.to_dict())
