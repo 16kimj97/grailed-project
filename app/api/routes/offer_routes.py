@@ -46,7 +46,7 @@ def delete_offer(itemId):
     return jsonify({"message": "Offer deleted successfully"})
 
 @offer_routes.route('/<int:itemId>', methods=['PUT'])
-# @login_required
+@login_required
 def update_offer(itemId):
     offer = Offer.query.get(itemId)
 
@@ -60,22 +60,20 @@ def update_offer(itemId):
     form['csrf_token'].data = request.cookies['csrf_token']
 
     if form.validate_on_submit():
-        if 'offer_price' in form.data:
-            offer.offer_price = form.data['offer_price']
-        if 'shipping_details' in form.data:
-            offer.shipping_details = form.data['shipping_details']
+        offer.offer_price = form.data['offer_price']
+        offer.shipping_details = form.data['shipping_details']
 
         db.session.commit()
         return jsonify(offer.to_dict())
+    return {form.errors}
 
-    return jsonify(form.errors), 400
 
-@offer_routes.route('/<int:itemId>')
+@offer_routes.route('/clothing/<int:clothingId>')
 @login_required
-def get_offer_details(itemId):
-    offer = Offer.query.get(itemId)
+def get_offers_by_clothing_id(clothingId):
+    offers = Offer.query.filter_by(clothing_id=clothingId).all()
 
-    if not offer:
-        return {"message", "offer not found"}, 404
+    if not offers:
+        return jsonify({"message": "No offers found for this clothing item"}), 404
 
-    return offer.to_dict()
+    return jsonify([offer.to_dict() for offer in offers])

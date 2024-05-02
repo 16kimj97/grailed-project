@@ -55,16 +55,17 @@ const UserOffers = () => {
                             </div>
                         )}
 
-                            <button className="delete-offers">
-                            <OpenModalMenuItem
-                                itemText="Delete"
-                                modalComponent={<DeleteOffers offerId={offer.id} />}
-                            />
-                        </button>
-
-                        <Link to={`/update-offer/${offer.id}`}>
+                        <div className="buttons-container">
+                            <button className="delete-offer-button">
+                                <OpenModalMenuItem
+                                    itemText="Delete"
+                                    modalComponent={<DeleteOffers offerId={offer.id} />}
+                                />
+                            </button>
+                            <button to={`/update-offer/${offer.id}`} className="update-offer-button">
                             Update
-                        </Link>
+                            </button>
+                        </div>
 
                     </div>
                 ))}

@@ -33,9 +33,15 @@ const UserClothing = () => {
                         <div className="item-size">{item.size}</div>
                     </div>
                     <div className="button-container">
-                        <Link to={`/update/${item.id}`} className="update-button">
-                            Update
+
+                        <Link to={`/offer/${item.id}`} className="offer-button"> {/* Added Link for the button */}
+                            Offer
                         </Link>
+
+                        <button to ={`/update/${item.id}`} className="update-button">
+                            Update
+                        </button>
+
                         <button className="delete-button">
                             <OpenModalMenuItem
                                 itemText="Delete"

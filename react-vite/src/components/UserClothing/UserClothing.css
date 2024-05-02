@@ -48,7 +48,7 @@ body {
     background-color: blue;
     color: white;
     max-width: 85px;
-    padding: 5px 5px;
+    padding: 9px 13px;
     border: none;
     border-radius: 5px;
     text-align: center;
@@ -77,6 +77,6 @@ body {
 
 
 .button-container {
-    display: flex;
     align-items: center;
+    justify-content: center;
 }

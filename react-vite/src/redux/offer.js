@@ -1,6 +1,7 @@
 const DELETE_OFFERS = 'DELETE_OFFERS'
 const UPDATE_OFFERS = 'UPDATE_OFFERS'
 const FETCH_OFFER_ID = 'FETCH_OFFER_ID'
+const FETCH_OFFER_BY_CLOTHING = 'FETCH_OFFER_BY_CLOTHING'
 
 export const updateOffers = offer => ({
     type: UPDATE_OFFERS,
@@ -16,6 +17,21 @@ export const fetchOfferId = offer => ({
     type: FETCH_OFFER_ID,
     payload: offer
 })
+
+export const fetchOfferByClothing = (offer) => ({
+    type: FETCH_OFFER_BY_CLOTHING,
+    payload: offer
+});
+
+export const thunkFetchOfferByClothing = (clothingId) => async dispatch => {
+        const res = await fetch(`api/offers/clothing/${clothingId}`);
+        if (!res.ok) {
+            throw new Error('Failed to fetch offers');
+        }
+        const offer = await res.json();
+        dispatch(fetchOfferByClothing(offer));
+        return offer;
+}
 
 export const thunkFetchOfferById = (offerId) => async dispatch => {
     const res = await fetch(`/api/offers/${offerId}`)
@@ -78,6 +94,12 @@ const offerReducer = (state={}, action) =>{
             ...state,
             [action.payload.id]: action.payload
         }
+        case FETCH_OFFER_BY_CLOTHING: {
+            const newState = {...state};
+            const clothingId = action.payload.clothingId;
+            newState[clothingId] = action.payload.offers;
+            return newState
+            }
         default:
             return state
     }
