@@ -1,8 +1,8 @@
 import { useEffect, useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-// import { thunkFetchOfferById, thunkUpdateOffer }
 import './UpdateOffers.css';
+import { thunkFetchOfferById, thunkUpdateOffer } from '../../../redux/offer';
 
 const UpdateOffers = () => {
     const { offerId } = useParams();
@@ -26,16 +26,19 @@ const UpdateOffers = () => {
         if (offer) {
             setOfferPrice(offer.offer_price);
             setShippingDetails(offer.shipping_details);
-            setStatus(offer.status);
         }
     }, [offer]);
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        const updatedOffer = { offerPrice, shippingDetails, status };
-        await dispatch(thunkUpdateOffer(parsedId, updatedOffer));
-        navigate('/user/offers');
+        const updatedOffer = {
+            offer_price: offerPrice,
+            shipping_details: shippingDetails,
+        };
+        await dispatch(thunkUpdateOffer(updatedOffer, parsedId));
+        navigate(`/current/offers`);
     };
+
 
     return (
         <div className="update-offers-container">

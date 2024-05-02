@@ -1,5 +1,6 @@
 const DELETE_OFFERS = 'DELETE_OFFERS'
 const UPDATE_OFFERS = 'UPDATE_OFFERS'
+const FETCH_OFFER_ID = 'FETCH_OFFER_ID'
 
 export const updateOffers = offer => ({
     type: UPDATE_OFFERS,
@@ -10,6 +11,20 @@ export const deleteOffers = offerId => ({
     type: DELETE_OFFERS,
     payload: offerId
 })
+
+export const fetchOfferId = offer => ({
+    type: FETCH_OFFER_ID,
+    payload: offer
+})
+
+export const thunkFetchOfferById = (offerId) => async dispatch => {
+    const res = await fetch(`/api/offers/${offerId}`)
+    // console.log(res)
+    const offer = await res.json()
+    dispatch(fetchOfferId(offer))
+    return offer
+}
+
 
 export const thunkDeleteOffers = (offerId) => async dispatch => {
     const res = await fetch(`/api/offers/${offerId}`, {
@@ -29,14 +44,17 @@ export const thunkDeleteOffers = (offerId) => async dispatch => {
 export const thunkUpdateOffer = (offer, offerId) => async (dispatch) => {
     const res = await fetch(`/api/offers/${offerId}`, {
         method: 'PUT',
-        body: offer
-    })
-    if (res.ok){
-        const offer = await res.json()
-        dispatch(updateOffers(offer))
-        return offer
+        headers: {
+            'Content-Type': 'application/json',
+        },
+    });
+
+    if (res.ok) {
+        const updatedOffer = await res.json();
+        dispatch(updateOffers(updatedOffer));
+        return updatedOffer;
     }
-}
+};
 
 
 const offerReducer = (state={}, action) =>{
@@ -45,6 +63,16 @@ const offerReducer = (state={}, action) =>{
             const newOfferState = {...state}
             delete newOfferState[action.payload]
             return newOfferState
+        }
+        case UPDATE_OFFERS: {
+            const editOfferState = {...state}
+            editOfferState[action.payload.id] = action.payload
+            return editOfferState
+        }
+        case FETCH_OFFER_ID:
+            return {
+            ...state,
+            [action.payload.id]: action.payload
         }
         default:
             return state

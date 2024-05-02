@@ -67,3 +67,13 @@ def update_offer(itemId):
         return jsonify(offer.to_dict())
 
     return jsonify(form.errors), 400
+
+@offer_routes.route('/<int:itemId>')
+@login_required
+def get_offer_details(itemId):
+    offer = Offer.query.get(itemId)
+
+    if not offer:
+        return {"message", "offer not found"}, 404
+
+    return offer.to_dict()
