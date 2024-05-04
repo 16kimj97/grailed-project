@@ -1,14 +1,16 @@
+import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useEffect } from "react";
 import { thunkFetchCurrent } from "../../redux/user";
-import { Link } from 'react-router-dom';
+import { Link } from "react-router-dom";
 import './UserClothing.css';
 import DeleteClothing from "../DeleteClothing/DeleteClothing";
 import OpenModalMenuItem from '../Navigation/OpenModalMenuItem';
+import OfferListByClothing from "./OfferByClothing";
 
 const UserClothing = () => {
     const dispatch = useDispatch();
     const clothing = useSelector(state => state.user.clothing);
+    const [showOffers, setShowOffers] = useState(null); // Track which item to show offers for
 
     useEffect(() => {
         dispatch(thunkFetchCurrent());
@@ -33,14 +35,16 @@ const UserClothing = () => {
                         <div className="item-size">{item.size}</div>
                     </div>
                     <div className="button-container">
-
-                        <Link to={`/offer/${item.id}`} className="offer-button"> {/* Added Link for the button */}
-                            Offer
-                        </Link>
-
-                        <button to ={`/update/${item.id}`} className="update-button">
-                            Update
+                        <button
+                            onClick={() => setShowOffers(prev => prev === item.id ? null : item.id)}
+                            className="offer-button"
+                        >
+                            {showOffers === item.id ? "Hide Offers" : "Offers"}
                         </button>
+
+                        <Link to={`/update/${item.id}`} className="update-button">
+                            Update
+                        </Link>
 
                         <button className="delete-button">
                             <OpenModalMenuItem
@@ -49,6 +53,12 @@ const UserClothing = () => {
                             />
                         </button>
                     </div>
+
+                    {showOffers === item.id && (
+                        <div className="offer-list">
+                            <OfferListByClothing clothingId={item.id} />
+                        </div>
+                    )}
                 </div>
             ))}
         </div>
@@ -56,4 +66,4 @@ const UserClothing = () => {
     );
 }
 
-export default UserClothing;
+export default UserClothing

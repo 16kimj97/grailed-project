@@ -5,17 +5,18 @@
 
 .profile-container{
   list-style-type: none;
+  position: relative;
 }
 
 .navigation {
-  background-color: #333;
+  background-color: #757575;
   color: white;
   padding: 0.5rem 1rem;
   font-family: 'Arial', sans-serif;
 }
 
 .nav-container {
-  max-width: 1900px;
+  max-width: 1600px;
   margin: 0 auto;
   display: flex;
   justify-content: space-between;
@@ -61,6 +62,24 @@
 
 .active {
   color: white;
+}
+
+
+.profile-dropdown {
+  position: absolute;
+  background-color: #fff;
+  color: black;
+  min-width: 160px;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  z-index: 1;
+  top: 100%;
+  left: 0;
+  display: none;
+}
+
+
+.profile-dropdown.active {
+  display: block;
 }
 
 

@@ -41,42 +41,38 @@ body {
 .user-images {
     width: 300px;
     height: 800px;
-    object-fit: cover; /* Maintain aspect ratio and cover the container */
-}
-
-.update-button {
-    background-color: blue;
-    color: white;
-    max-width: 85px;
-    padding: 9px 13px;
-    border: none;
-    border-radius: 5px;
-    text-align: center;
-    text-decoration: none;
-    display: inline-block;
-    cursor: pointer;
-    margin-left: 12px;
-    margin-top: 15px;
-}
-
-.delete-button {
-    list-style-type: none;
-    background-color: red;
-    color: white;
-    max-width: 85px;
-    padding: 9px 13px;
-    border: none;
-    border-radius: 5px;
-    text-align: center;
-    text-decoration: none;
-    display: inline-block;
-    cursor: pointer;
-    margin-left: 12px;
-    margin-top: 15px;
+    object-fit: cover;
 }
 
 
 .button-container {
     align-items: center;
     justify-content: center;
+}
+
+
+.update-button,
+.delete-button,
+.offer-button {
+    list-style-type: none;
+    background-color: black;
+    color: white;
+    max-width: 85px;
+    padding: 9px 13px;
+    border: 1px solid black;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    cursor: pointer;
+    margin-left: 12px;
+    margin-top: 15px;
+    border-radius: 0;
+}
+
+.update-button:hover,
+.delete-button:hover,
+.offer-button:hover {
+    transform: scale(1.1);
+    background-color: white;
+    color: black;
 }

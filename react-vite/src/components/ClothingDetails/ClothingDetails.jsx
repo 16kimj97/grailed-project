@@ -2,12 +2,13 @@ import { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { useParams } from 'react-router-dom';
 import { thunkFetchClothingById } from '../../redux/clothing';
+import OpenModalCreate from '../UserOffers/CreateOffers/OpenModalCreateOffers';
 import './ClothingDetails.css';
 
 const ClothingDetails = () => {
     const { clothingId } = useParams();
     const dispatch = useDispatch();
-    const parsedId = parseInt(clothingId)
+    const parsedId = parseInt(clothingId);
 
     useEffect(() => {
         if (clothingId) {
@@ -18,29 +19,33 @@ const ClothingDetails = () => {
     const clothing = useSelector(state => state.clothing[parsedId]);
 
     if (!clothing) {
-        return <div className="clothing-loading">Loading...</div>;
+        return <div className="clothing-details-loading">Loading...</div>;
     }
 
     return (
         <div className="clothing-details">
-            <div className="clothing-header">
-                <h2>{clothing.title}</h2>
-                <span className="clothing-status">{clothing.status}</span>
+            <h2 className="clothing-details-title">{clothing.title}</h2>
+            {clothing.images && <img className="clothing-details-image" src={clothing.images} alt={clothing.title} />}
+            <div className="date-container">
+                <div className="clothing-details-date">
+                    Listed on: {new Date(clothing.date_listed).toLocaleDateString()}
+                </div>
             </div>
-            <div className="clothing-body">
+
+            <div className="clothing-details-body">
                 <p>{clothing.description}</p>
-                <div className="clothing-info">
+                <div className="clothing-details-info">
                     <span>Size: {clothing.size}</span>
                     <span>Brand: {clothing.brand}</span>
                     <span>Condition: {clothing.condition}</span>
                 </div>
-                <div className="clothing-price">
+                <div className="clothing-details-price">
                     Price: ${clothing.price}
                 </div>
-                {clothing.images && <img src={clothing.images} alt={clothing.title} />}
-                <div className="clothing-date">
-                    Listed on: {new Date(clothing.date_listed).toLocaleDateString()}
-                </div>
+            </div>
+
+            <div className="create-offer-button">
+                <OpenModalCreate clothingId={clothingId} />
             </div>
         </div>
     );

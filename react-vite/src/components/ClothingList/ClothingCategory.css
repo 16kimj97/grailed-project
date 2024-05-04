@@ -1,7 +1,7 @@
 .clothing-category {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(290px, 1fr));
-    gap: 125px;
+    gap: 65px;
     padding: 25px;
     max-width: 1800px;
     margin: 0 auto;

@@ -2,9 +2,15 @@ const DELETE_OFFERS = 'DELETE_OFFERS'
 const UPDATE_OFFERS = 'UPDATE_OFFERS'
 const FETCH_OFFER_ID = 'FETCH_OFFER_ID'
 const FETCH_OFFER_BY_CLOTHING = 'FETCH_OFFER_BY_CLOTHING'
+const CREATE_OFFER = 'CREATE_OFFER'
 
 export const updateOffers = offer => ({
     type: UPDATE_OFFERS,
+    payload: offer
+})
+
+export const createOffer = offer => ({
+    type: CREATE_OFFER,
     payload: offer
 })
 
@@ -18,20 +24,34 @@ export const fetchOfferId = offer => ({
     payload: offer
 })
 
-export const fetchOfferByClothing = (offer) => ({
+export const fetchOfferByClothing = (offers) => ({
     type: FETCH_OFFER_BY_CLOTHING,
-    payload: offer
+    payload: offers
 });
 
+export const thunkCreateOffer = (offer) => async dispatch => {
+    const res = await fetch('/api/offers/new', {
+        method: 'POST',
+        body: offer
+    })
+    if(res.ok){
+        const offer = await res.json();
+        dispatch(createOffer(offer))
+        return offer
+    }
+    else {
+        const error = await res.json();
+        console.error("Error:", error);
+    }
+}
+
 export const thunkFetchOfferByClothing = (clothingId) => async dispatch => {
-        const res = await fetch(`api/offers/clothing/${clothingId}`);
-        if (!res.ok) {
-            throw new Error('Failed to fetch offers');
-        }
+        const res = await fetch(`/api/offers/clothing/${clothingId}`);
+
         const offer = await res.json();
         dispatch(fetchOfferByClothing(offer));
         return offer;
-}
+};
 
 export const thunkFetchOfferById = (offerId) => async dispatch => {
     const res = await fetch(`/api/offers/${offerId}`)
@@ -96,10 +116,15 @@ const offerReducer = (state={}, action) =>{
         }
         case FETCH_OFFER_BY_CLOTHING: {
             const newState = {...state};
-            const clothingId = action.payload.clothingId;
-            newState[clothingId] = action.payload.offers;
+            const clothingId = action.payload[0].clothing_id;
+            newState[clothingId] = action.payload;
             return newState
             }
+        case CREATE_OFFER: {
+            const newOfferState = {...state}
+            newOfferState[action.payload.id] = action.payload
+            return newOfferState
+        }
         default:
             return state
     }

@@ -1,51 +1,62 @@
+.create-offer-button {
+    margin-top: 20px;
+    display: flex;
+    justify-content: center;
+}
+
 .clothing-details {
     font-family: Arial, sans-serif;
     border: 1px solid #ccc;
     padding: 20px;
-    margin: 20px;
+    margin: 20px auto;
     background-color: #f9f9f9;
+    width: 70%;
 }
 
-.clothing-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
+.clothing-details-title {
+    text-align: center;
+    margin-bottom: 10px;
 }
 
-.clothing-status {
-    font-size: 0.9rem;
-    color: #5cb85c;
-    background-color: #eff5ef;
-    padding: 3px 8px;
-    border-radius: 4px;
+.clothing-details-image {
+    width: 100%;
+    max-width: 700px;
+    display: block;
+    margin: 0 auto;
 }
 
-.clothing-body {
+.date-container {
+    width: 100%;
+    border-bottom: 1px solid grey;
+    text-align: center;
+}
+
+.clothing-details-date {
+    color: grey;
+    padding: 5px 0;
+}
+
+.clothing-details-body {
     margin-top: 20px;
 }
 
-.clothing-info {
+.clothing-details-info {
     font-size: 0.9rem;
     color: #333;
 }
 
-.clothing-info span {
+.clothing-details-info span {
+    display: inline-block;
     margin-right: 20px;
 }
 
-.clothing-price {
+.clothing-details-price {
     margin-top: 10px;
     font-weight: bold;
     color: #de4d4d;
 }
 
-.clothing-date {
-    margin-top: 10px;
-    font-size: 0.8rem;
-    color: #777;
-}
-
-.clothing-loading {
+.clothing-details-loading {
     text-align: center;
     font-size: 1.2rem;
     padding: 50px;

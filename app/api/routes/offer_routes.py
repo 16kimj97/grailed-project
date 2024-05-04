@@ -18,6 +18,8 @@ def add_offer():
     form['csrf_token'].data = request.cookies['csrf_token']
 
     if form.validate_on_submit():
+        # clothing_id = request.json.get('clothing_id')
+
         new_offer = Offer(
             clothing_id=form.data['clothing_id'],
             user_id=current_user.id,
@@ -71,6 +73,8 @@ def update_offer(itemId):
 @offer_routes.route('/clothing/<int:clothingId>')
 @login_required
 def get_offers_by_clothing_id(clothingId):
+    print(f"Received request for clothing ID: {clothingId}")
+
     offers = Offer.query.filter_by(clothing_id=clothingId).all()
 
     if not offers:

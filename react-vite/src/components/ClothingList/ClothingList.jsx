@@ -4,7 +4,7 @@ import { thunkFetchClothing } from '../../redux/clothing';
 import ClothingCategory from './ClothingCategory';
 import { Routes, Route, Link } from 'react-router-dom';
 import './ClothingList.css';
-import homeImg from '../../images/homepage.jpg';
+import homeImg from '../../images/header.jpg';
 
 const ClothingList = () => {
     const dispatch = useDispatch();
@@ -15,7 +15,7 @@ const ClothingList = () => {
 
     return (
         <div className="clothing-list">
-            <img src={homeImg} className="clothing-image" alt="Homepage" />
+            <img src={homeImg} className="clothing-header" alt="Homepage" />
 
         <div className="image-text-overlay">
             The Platform for Style
