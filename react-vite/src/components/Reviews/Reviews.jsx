@@ -45,7 +45,7 @@ const ReviewComponent = ({ revieweeId }) => {
             {reviews.map((review, index) => (
                 <div key={index} className="review-item">
                     <p> Reviewer: {users[review.reviewer_id]?.username}</p>
-                    <p> Reviewee: {reviewee.username}</p>
+                    {/* <p> Reviewee: {reviewee.username}</p> */}
                     <p> {renderStarRating(review.rating)}</p>
                     <p>{review.comment}</p>
                     <p>{new Date(review.date_posted).toLocaleDateString()}</p>
