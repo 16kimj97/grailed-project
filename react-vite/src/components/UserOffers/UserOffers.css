@@ -82,14 +82,12 @@
     color: #666;
 }
 
-.delete-offer-button {
-    list-style-type: none;
-    background-color: red;
+.delete-offer-button, .update-offer-button {
+    background-color: black;
     color: white;
     max-width: 85px;
     padding: 13px 13px;
     border: none;
-    border-radius: 5px;
     text-align: center;
     text-decoration: none;
     display: inline-block;
@@ -98,21 +96,7 @@
     align-items: center;
 }
 
-.update-offer-button {
-    background-color: #007bff;
-    color: white;
-    max-width: 85px;
-    padding: 12px 13px;
-    border: none;
-    border-radius: 5px;
-    text-align: center;
-    text-decoration: none;
-    display: inline-block;
-    cursor: pointer;
-    margin-left: 12px;
-    align-items: center;
-}
-
-.update-offer-button:hover {
-    background-color: #0056b3;
+.delete-offer-button:hover, .update-offer-button:hover {
+    background-color: white;
+    color: black;
 }

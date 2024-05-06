@@ -14,7 +14,9 @@ function DeleteOffers({offerId}) {
     async function confirm() {
         await dispatch(thunkDeleteOffers(offerId))
         closeModal()
+        window.location.reload();
     }
+
     return (
         <div id ="deleteModal" className='delete-offers'>
             <h1>Do you want to delete your listing?</h1>
