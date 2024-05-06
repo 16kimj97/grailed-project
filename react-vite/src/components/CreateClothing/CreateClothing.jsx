@@ -35,7 +35,7 @@ function CreateClothing() {
         if (!condition) newErrors.condition = "Condition is required";
         if (!dateListed) newErrors.dateListed = "Date listed is required";
         if (!gender) newErrors.gender = "Gender is required";
-        if (!images.length) newErrors.images = "At least one image is required";
+        if (!images.length) newErrors.images = "image is required";
         return newErrors;
     };
 
@@ -55,8 +55,7 @@ function CreateClothing() {
             formData.append('condition', condition);
             formData.append('date_listed', dateListed);
             formData.append('gender', gender);
-            images.forEach((img) => formData.append('images', img));
-
+            formData.append('images', images)
             const newClothing = await dispatch(thunkCreateClothing(formData));
             if (newClothing) {
                 navigate(`/clothing/${newClothing.id}`);
@@ -129,7 +128,7 @@ function CreateClothing() {
                 </div>
                 <div className="form-group">
                     <label>Images:</label>
-                    <input type="file" multiple onChange={(e) => setImages([...e.target.files])} />
+                    <input type="text" value={images} onChange={(e) => setImages(e.target.value)} />
                     {submitted && errors.images && <div className="error">{errors.images}</div>}
                 </div>
                 <button type="submit">Create Clothing Item</button>
