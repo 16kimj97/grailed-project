@@ -4,6 +4,7 @@ import { useParams } from 'react-router-dom';
 import { thunkFetchClothingById } from '../../redux/clothing';
 import OpenModalCreate from '../UserOffers/CreateOffers/OpenModalCreateOffers';
 import './ClothingDetails.css';
+import ReviewComponent from '../Reviews/Reviews';
 
 const ClothingDetails = () => {
     const { clothingId } = useParams();
@@ -50,6 +51,8 @@ const ClothingDetails = () => {
                     <OpenModalCreate clothingId={clothingId} />
                 </div>
             )}
+
+        <ReviewComponent revieweeId={clothing.user_id} />
         </div>
     );
 };

@@ -9,18 +9,23 @@ const UpdateOffers = () => {
     const parsedId = parseInt(offerId);
     const dispatch = useDispatch();
     const navigate = useNavigate();
-
-    const offer = useSelector(state => state.offers[parsedId]);
-
-    const [offerPrice, setOfferPrice] = useState('');
-    const [shippingDetails, setShippingDetails] = useState('');
-
+    console.log('parsedId', parsedId)
 
     useEffect(() => {
         if (parsedId) {
             dispatch(thunkFetchOfferById(parsedId));
         }
     }, [parsedId, dispatch]);
+
+    const offer = useSelector(state => state.offers[parsedId]);
+
+
+
+    console.log(offer)
+
+    const [offerPrice, setOfferPrice] = useState('');
+    const [shippingDetails, setShippingDetails] = useState('');
+
 
     useEffect(() => {
         if (offer) {
@@ -32,7 +37,7 @@ const UpdateOffers = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
         const updatedOffer = {
-            offer_price: offerPrice,
+            offer_price: parseFloat(offerPrice),
             shipping_details: shippingDetails,
         };
         await dispatch(thunkUpdateOffer(updatedOffer, parsedId));
@@ -58,6 +63,6 @@ const UpdateOffers = () => {
             </form>
         </div>
     );
-}
+};
 
 export default UpdateOffers;

@@ -1,0 +1,35 @@
+.review-container {
+    margin: 20px;
+  }
+
+  .review-heading {
+    font-size: 24px;
+    margin-bottom: 10px;
+  }
+
+  .review-item {
+    border: 1px solid #ccc;
+    padding: 10px;
+    margin-bottom: 10px;
+  }
+
+  .rating-section {
+    display: flex;
+    align-items: center;
+  }
+
+  .rating-label {
+    margin-right: 10px;
+  }
+
+  .star-rating {
+    color: #ffd700;
+  }
+
+  .filled-star {
+    color: #ffd700;
+  }
+
+  .empty-star {
+    color: #ccc;
+  }

@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { thunkCreateClothing } from "../../redux/clothing";
 import { useNavigate } from "react-router-dom";
-import './CreateClothing.css'
+import './CreateClothing.css';
 
 function CreateClothing() {
     const dispatch = useDispatch();
@@ -16,7 +16,8 @@ function CreateClothing() {
     const [images, setImages] = useState([]);
     const [dateListed, setDateListed] = useState('');
     const [gender, setGender] = useState('');
-    const [error, setError] = useState({});
+    const [errors, setErrors] = useState({});
+    const [submitted, setSubmitted] = useState(false);
 
     const user = useSelector(state => state.session['user']);
 
@@ -24,23 +25,27 @@ function CreateClothing() {
         if (!user) navigate('/');
     }, [navigate, user]);
 
-    useEffect(() => {
-        const errObj = {};
-        if (!title.length) errObj.title = "Title required";
-        if (!description.length) errObj.description = "Description required";
-        if (!price) errObj.price = "Price required";
-        if (!size.length) errObj.size = "Size required";
-        if (!brand.length) errObj.brand = "Brand required";
-        if (!condition.length) errObj.condition = "Condition required";
-        if (!dateListed) errObj.dateListed = "Date listed required";
-        if (!gender) errObj.gender = "Gender required";  // Check if gender is provided
-        if (!images.length) errObj.images = "At least one image required";
-        setError(errObj);
-    }, [title, description, price, size, brand, condition, dateListed, gender, images]);
+    const validateForm = () => {
+        const newErrors = {};
+        if (!title) newErrors.title = "Title is required";
+        if (!description) newErrors.description = "Description is required";
+        if (!price) newErrors.price = "Price is required";
+        if (!size) newErrors.size = "Size is required";
+        if (!brand) newErrors.brand = "Brand is required";
+        if (!condition) newErrors.condition = "Condition is required";
+        if (!dateListed) newErrors.dateListed = "Date listed is required";
+        if (!gender) newErrors.gender = "Gender is required";
+        if (!images.length) newErrors.images = "At least one image is required";
+        return newErrors;
+    };
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        if (Object.keys(error).length === 0) {
+        const formErrors = validateForm();
+        setErrors(formErrors);
+        setSubmitted(true);
+
+        if (Object.keys(formErrors).length === 0) {
             const formData = new FormData();
             formData.append('title', title);
             formData.append('description', description);
@@ -49,13 +54,13 @@ function CreateClothing() {
             formData.append('brand', brand);
             formData.append('condition', condition);
             formData.append('date_listed', dateListed);
-            formData.append('gender', gender);  // Append gender to form data
-            images.forEach((img, index) => formData.append('images', img));
+            formData.append('gender', gender);
+            images.forEach((img) => formData.append('images', img));
 
             const newClothing = await dispatch(thunkCreateClothing(formData));
-            navigate(`/clothing/${newClothing.id}`);
-        } else {
-            console.log("Form validation errors:", error);
+            if (newClothing) {
+                navigate(`/clothing/${newClothing.id}`);
+            }
         }
     };
 
@@ -66,24 +71,22 @@ function CreateClothing() {
                 <div className="form-group">
                     <label>Title:</label>
                     <input type="text" value={title} onChange={(e) => setTitle(e.target.value)} />
-                    {error.title && <div className="error">{error.title}</div>}
+                    {submitted && errors.title && <div className="error">{errors.title}</div>}
                 </div>
-
                 <div className="form-group">
                     <label>Description:</label>
                     <textarea value={description} onChange={(e) => setDescription(e.target.value)} />
-                    {error.description && <div className="error">{error.description}</div>}
+                    {submitted && errors.description && <div className="error">{errors.description}</div>}
                 </div>
-
                 <div className="form-group">
                     <label>Price:</label>
                     <input type="number" value={price} onChange={(e) => setPrice(e.target.value)} />
-                    {error.price && <div className="error">{error.price}</div>}
+                    {submitted && errors.price && <div className="error">{errors.price}</div>}
                 </div>
-
                 <div className="form-group">
                     <label>Size:</label>
-                    <select id="size" name="size" value={size} onChange={(e) => setSize(e.target.value)}>
+                    <select value={size} onChange={(e) => setSize(e.target.value)}>
+                        <option value="">Select Size</option>
                         <option value="XS">XS</option>
                         <option value="S">S</option>
                         <option value="M">M</option>
@@ -91,48 +94,44 @@ function CreateClothing() {
                         <option value="XL">XL</option>
                         <option value="XXL">XXL</option>
                     </select>
-                    {error.size && <div className="error">{error.size}</div>}
+                    {submitted && errors.size && <div className="error">{errors.size}</div>}
                 </div>
-
                 <div className="form-group">
                     <label>Brand:</label>
                     <input type="text" value={brand} onChange={(e) => setBrand(e.target.value)} />
-                    {error.brand && <div className="error">{error.brand}</div>}
+                    {submitted && errors.brand && <div className="error">{errors.brand}</div>}
                 </div>
-
                 <div className="form-group">
                     <label>Condition:</label>
-                    <select id="condition" name="condition" value={condition} onChange={(e) => setCondition(e.target.value)}>
+                    <select value={condition} onChange={(e) => setCondition(e.target.value)}>
+                    <option value="">Select Condition</option>
                         <option value="New">New</option>
                         <option value="Like New">Like New</option>
                         <option value="Used">Used</option>
                         <option value="Worn">Worn</option>
                     </select>
-                    {error.condition && <div className="error">{error.condition}</div>}
+                    {submitted && errors.condition && <div className="error">{errors.condition}</div>}
                 </div>
-
                 <div className="form-group">
                     <label>Date Listed:</label>
                     <input type="date" value={dateListed} onChange={(e) => setDateListed(e.target.value)} />
-                    {error.dateListed && <div className="error">{error.dateListed}</div>}
+                    {submitted && errors.dateListed && <div className="error">{errors.dateListed}</div>}
                 </div>
-
                 <div className="form-group">
                     <label>Gender:</label>
-                    <select id="gender" name="gender" value={gender} onChange={(e) => setGender(e.target.value)}>
+                    <select value={gender} onChange={(e) => setGender(e.target.value)}>
+                        <option value="">Select Gender</option>
                         <option value="Menswear">Menswear</option>
                         <option value="Womenswear">Womenswear</option>
                         <option value="Unisex">Unisex</option>
                     </select>
-                    {error.gender && <div className="error">{error.gender}</div>}
+                    {submitted && errors.gender && <div className="error">{errors.gender}</div>}
                 </div>
-
                 <div className="form-group">
                     <label>Images:</label>
-                    <input type="text" onChange={(e) => setImages([e.target.value])} />
-                    {error.images && <div className="error">{error.images}</div>}
+                    <input type="file" multiple onChange={(e) => setImages([...e.target.files])} />
+                    {submitted && errors.images && <div className="error">{errors.images}</div>}
                 </div>
-
                 <button type="submit">Create Clothing Item</button>
             </form>
         </div>

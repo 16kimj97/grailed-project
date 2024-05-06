@@ -6,7 +6,7 @@ def seed_reviews():
     reviews = [
         Review(
             reviewer_id=1,
-            reviewee_id=2,
+            reviewee_id=3,
             rating=5,
             comment="Great seller, very responsive and items shipped quickly.",
             date_posted=datetime.utcnow()

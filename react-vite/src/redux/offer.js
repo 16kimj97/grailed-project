@@ -59,12 +59,14 @@ export const thunkFetchOfferByClothing = (clothingId) => async dispatch => {
         return offer;
 };
 
-export const thunkFetchOfferById = (offerId) => async dispatch => {
-    const res = await fetch(`/api/offers/${offerId}`)
+export const thunkFetchOfferById = (id) => async dispatch => {
+    const res = await fetch(`/api/offers/clothing/${id}`)
     // console.log(res)
-    const offer = await res.json()
-    dispatch(fetchOfferId(offer))
-    return offer
+    if (res.ok){
+      const offer = await res.json()
+      dispatch(fetchOfferId(offer))
+      return offer
+    }
 }
 
 
@@ -124,8 +126,8 @@ export const thunkUpdateStatus = (status, offerId) => async (dispatch) => {
 
 
 const initialState = {
-    offers: [],
-  };
+  offers: [],
+};
 
   const offerReducer = (state = initialState, action) => {
     switch (action.type) {
@@ -150,18 +152,10 @@ const initialState = {
           offers: updatedOffers,
         };
       }
-      case FETCH_OFFER_ID: {
-        const newOffer = action.payload;
-        const updatedOffers = state.offers.map(offer => {
-          if (offer.id === newOffer.id) {
-            return newOffer;
-          }
-          return offer;
-        });
+      case FETCH_OFFER_ID:
         return {
           ...state,
-          offers: updatedOffers,
-        };
+          [action.payload.id]: action.payload
       }
       case FETCH_OFFER_BY_CLOTHING: {
         const offersByClothingId = action.payload;

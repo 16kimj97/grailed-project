@@ -2,6 +2,7 @@ from flask import Blueprint, jsonify, request
 from app.models import Offer, Clothing, db
 from flask_login import current_user, login_required
 from app.forms.offer_form import OfferForm
+from app.forms.create_offer import CreateOfferForm
 from app.forms.update_status  import UpdateOfferStatusForm
 
 offer_routes = Blueprint('offers', __name__)
@@ -15,7 +16,7 @@ def get_user_offers():
 @offer_routes.route('/new', methods=['POST'])
 @login_required
 def add_offer():
-    form = OfferForm()
+    form = CreateOfferForm()
     form['csrf_token'].data = request.cookies['csrf_token']
 
     if form.validate_on_submit():

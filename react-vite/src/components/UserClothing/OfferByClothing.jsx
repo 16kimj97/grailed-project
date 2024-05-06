@@ -17,6 +17,8 @@ const OfferListByClothing = ({ clothingId }) => {
 
   const offers = useSelector(state => state.offers.offers);
 
+  console.log('=============>', offers)
+
   const handleUpdateStatus = (offerId) => {
     const modalContent = <UpdateStatusForm offerId={offerId} onClose={() => setModalContent(null)} />;
     setModalContent(modalContent);

@@ -1,5 +1,5 @@
 const FETCH_CURRENT = 'FETCH_CURRENT'
-
+const LOAD_USER = 'user/loadUser';
 const FETCH_OFFERS = 'FETCH_OFFERS'
 
 export const fetchCurrent = clothing => ({
@@ -12,6 +12,12 @@ export const fetchOffers = offers => ({
     payload: offers
 })
 
+export const loadUser = user => ({
+    type: LOAD_USER,
+    payload: user
+});
+
+
 export const thunkFetchCurrent = () => async dispatch => {
     const response = await fetch('/api/clothing/user/current')
     if (response.ok) {
@@ -19,6 +25,20 @@ export const thunkFetchCurrent = () => async dispatch => {
         dispatch(fetchCurrent(clothing))
     }
 }
+
+export const thunkFetchUser = (id) => async dispatch => {
+    try {
+        const response = await fetch(`/api/users/${id}`);
+        if (!response.ok) {
+            throw new Error('Failed to fetch user');
+        }
+        const user = await response.json();
+        dispatch(loadUser(user));
+    } catch (error) {
+        console.error('Error fetching user:', error);
+    }
+};
+
 
 export const thunkFetchOffers = () => async dispatch => {
     const response = await fetch('/api/offers/current')
@@ -32,17 +52,25 @@ export const thunkFetchOffers = () => async dispatch => {
 
 const userReducer = (state = {}, action) => {
     switch (action.type) {
-        case FETCH_CURRENT:
+        case FETCH_CURRENT: {
             return {
                 ...state,
                 clothing: action.payload
             };
-        case FETCH_OFFERS:
+        }
+        case FETCH_OFFERS: {
             return {
                  ...state,
                  offers: action.payload
-            }
-
+            };
+        }
+        case LOAD_USER: {
+            const user = action.payload;
+            return {
+                ...state,
+                [user.id]: user
+            };
+        }
         default:
             return state;
     }
