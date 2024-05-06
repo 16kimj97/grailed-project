@@ -65,24 +65,6 @@
 }
 
 
-.profile-dropdown {
-  position: absolute;
-  background-color: #fff;
-  color: black;
-  min-width: 160px;
-  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
-  z-index: 1;
-  top: 100%;
-  left: 0;
-  display: none;
-}
-
-
-.profile-dropdown.active {
-  display: block;
-}
-
-
 .profile-dropdown li{
   font-weight: bold;
   display: flex;

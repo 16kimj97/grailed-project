@@ -3,31 +3,25 @@ import ProfileButton from "./ProfileButton";
 import "./Navigation.css";
 import grailedGif from '../../images/grailed.gif';
 
-function Navigation({ isLoggedIn }) {
+function Navigation() {
     return (
         <nav className="navigation">
             <div className="nav-container">
-                {/* Always visible Home link */}
                 <ul className="nav-list">
                     <li className="nav-item">
-                        <NavLink to="/">
+                        <NavLink to="/" exact activeClassName="active">
                             <img className='homeImg' src={grailedGif} alt='Home image' />
                         </NavLink>
                     </li>
-
-                    {isLoggedIn && (
-                        <>
-                            <li className="nav-item">
-                                <NavLink to="/user/current/clothing">My Clothing</NavLink>
-                            </li>
-                            <li className="nav-item">
-                                <NavLink to="/clothing/new">Sell</NavLink>
-                            </li>
-                            <li className="nav-item">
-                                <NavLink to="/current/offers">Sent Offers</NavLink>
-                            </li>
-                        </>
-                    )}
+                    <li className="nav-item">
+                        <NavLink to="/user/current/clothing" activeClassName="active">My Clothing</NavLink>
+                    </li>
+                    <li className="nav-item">
+                        <NavLink to="/clothing/new" activeClassName="active">Sell</NavLink>
+                    </li>
+                    <li className="nav-item">
+                        <NavLink to="/current/offers" activeClassName="active">Sent Offers</NavLink>
+                    </li>
                 </ul>
 
                 <ul className="profile-container">

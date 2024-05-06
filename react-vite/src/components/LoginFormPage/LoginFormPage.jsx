@@ -16,14 +16,11 @@ function LoginFormPage() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    login(email, password);
+  };
 
-    const serverResponse = await dispatch(
-      thunkLogin({
-        email,
-        password,
-      })
-    );
-
+  const login = async (email, password) => {
+    const serverResponse = await dispatch(thunkLogin({ email, password }));
     if (serverResponse) {
       setErrors(serverResponse);
     } else {
@@ -31,12 +28,15 @@ function LoginFormPage() {
     }
   };
 
+  const handleDemoLogin = () => {
+    login("demo@aa.io", "password");
+  };
+
   return (
     <>
       <h1>Log In</h1>
-      {errors.length > 0 &&
-        errors.map((message) => <p key={message}>{message}</p>)}
-      <form onSubmit={handleSubmit}>
+      {errors.length > 0 && errors.map((message) => <p key={message}>{message}</p>)}
+      <form onSubmit={handleSubmit} className="login-form">
         <label>
           Email
           <input
@@ -46,7 +46,7 @@ function LoginFormPage() {
             required
           />
         </label>
-        {errors.email && <p>{errors.email}</p>}
+        {errors.email && <p className="error">{errors.email}</p>}
         <label>
           Password
           <input
@@ -56,8 +56,9 @@ function LoginFormPage() {
             required
           />
         </label>
-        {errors.password && <p>{errors.password}</p>}
+        {errors.password && <p className="error">{errors.password}</p>}
         <button type="submit">Log In</button>
+        <button type="button" onClick={handleDemoLogin} style={{ background: 'red', color: 'white' }}>Test Demo Login</button>
       </form>
     </>
   );
