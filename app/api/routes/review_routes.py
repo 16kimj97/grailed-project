@@ -3,4 +3,4 @@ from app.models import Review, db
 from flask_login import current_user, login_required
 from datetime import datetime
 
-review_routes = Blueprint('reviews'), __name__
+review_routes = Blueprint('reviews', __name__)
