@@ -6,15 +6,23 @@ import './UserClothing.css';
 import DeleteClothing from "../DeleteClothing/DeleteClothing";
 import OpenModalMenuItem from '../Navigation/OpenModalMenuItem';
 import OfferListByClothing from "./OfferByClothing";
+import { useNavigate } from 'react-router-dom';
+
 
 const UserClothing = () => {
     const dispatch = useDispatch();
     const clothing = useSelector(state => state.user.clothing);
-    const [showOffers, setShowOffers] = useState(null); // Track which item to show offers for
+    const [showOffers, setShowOffers] = useState(null);
+    const navigate = useNavigate();
 
     useEffect(() => {
         dispatch(thunkFetchCurrent());
     }, [dispatch]);
+
+    const handleUpdateClick = (itemId) => {
+        navigate(`/update/${itemId}`);
+    };
+
 
     return (
         <>
@@ -42,7 +50,10 @@ const UserClothing = () => {
                             {showOffers === item.id ? "Hide Offers" : "Offers"}
                         </button>
 
-                        <button to={`/update/${item.id}`} className="update-button">
+                        <button
+                            onClick={() => handleUpdateClick(item.id)}
+                            className="update-button"
+                        >
                             Update
                         </button>
 

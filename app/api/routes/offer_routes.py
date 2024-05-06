@@ -2,6 +2,7 @@ from flask import Blueprint, jsonify, request
 from app.models import Offer, Clothing, db
 from flask_login import current_user, login_required
 from app.forms.offer_form import OfferForm
+from app.forms.update_status  import UpdateOfferStatusForm
 
 offer_routes = Blueprint('offers', __name__)
 
@@ -67,7 +68,8 @@ def update_offer(itemId):
 
         db.session.commit()
         return jsonify(offer.to_dict())
-    return {form.errors}
+    else:
+        return jsonify({"errors": form.errors}), 400
 
 
 @offer_routes.route('/clothing/<int:clothingId>')
@@ -81,3 +83,25 @@ def get_offers_by_clothing_id(clothingId):
         return jsonify({"message": "No offers found for this clothing item"}), 404
 
     return jsonify([offer.to_dict() for offer in offers])
+
+
+@offer_routes.route('/<int:itemId>/status', methods=['PUT'])
+@login_required
+def update_offer_status(itemId):
+    offer = Offer.query.get(itemId)
+
+    if not offer:
+        return jsonify({"message": "Offer not found"}), 400
+
+    if offer.clothing.user_id != current_user.id:
+        return jsonify({"message": "You are not the owner of this clothing item"}), 403
+
+    form = UpdateOfferStatusForm()
+    form['csrf_token'].data = request.cookies['csrf_token']
+
+    if form.validate_on_submit():
+        offer.status = form.status.data
+        db.session.commit()
+        return jsonify(offer.to_dict())
+    else:
+        return jsonify({"message": "Invalid input", "errors": form.errors}), 400

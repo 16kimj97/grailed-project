@@ -17,7 +17,7 @@ const ClothingDetails = () => {
     }, [dispatch, clothingId, parsedId]);
 
     const clothing = useSelector(state => state.clothing[parsedId]);
-    const currentUser = useSelector(state => state.session.user);  // Assuming your user's data is stored here
+    const currentUser = useSelector(state => state.session.user);
 
     if (!clothing) {
         return <div className="clothing-details-loading">Loading...</div>;

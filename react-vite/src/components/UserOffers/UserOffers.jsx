@@ -6,11 +6,15 @@ import { Link } from "react-router-dom";
 import './UserOffers.css'
 import DeleteOffers from "./DeleteOffers/DeleteOffers";
 import OpenModalMenuItem from "../Navigation/OpenModalMenuItem";
+import { useNavigate } from 'react-router-dom';
+
 
 const UserOffers = () => {
     const dispatch = useDispatch();
     const offers = useSelector(state => state.user.offers);
     const clothing = useSelector(state => state.clothing);
+    const navigate = useNavigate();
+
 
     useEffect(() => {
         dispatch(thunkFetchOffers());
@@ -21,6 +25,10 @@ const UserOffers = () => {
             offers.forEach(offer => dispatch(thunkFetchClothingById(offer.clothing_id)));
         }
     }, [offers, dispatch]);
+
+    const handleUpdateClick = (offerId) => {
+        navigate(`/update-offer/${offerId}`);
+    };
 
 
     return (
@@ -62,8 +70,8 @@ const UserOffers = () => {
                                     modalComponent={<DeleteOffers offerId={offer.id} />}
                                 />
                             </button>
-                            <button to={`/update-offer/${offer.id}`} className="update-offer-button">
-                            Update
+                            <button onClick={() => handleUpdateClick(offer.id)} className="update-offer-button">
+                                Update
                             </button>
                         </div>
 
