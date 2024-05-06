@@ -13,13 +13,10 @@ function LoginFormModal() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
-    const serverResponse = await dispatch(
-      thunkLogin({
-        email,
-        password,
-      })
-    );
+    const serverResponse = await dispatch(thunkLogin({
+      email,
+      password,
+    }));
 
     if (serverResponse) {
       setErrors(serverResponse);
@@ -28,33 +25,47 @@ function LoginFormModal() {
     }
   };
 
+  const handleDemoLogin = () => {
+    dispatch(thunkLogin({ email: "demo@aa.io", password: "password" }))
+      .then(() => closeModal());
+  };
+
   return (
-    <>
+    <div className="login-modal-container">
       <h1>Log In</h1>
-      <form onSubmit={handleSubmit}>
-        <label>
-          Email
-          <input
-            type="text"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            required
-          />
-        </label>
-        {errors.email && <p>{errors.email}</p>}
-        <label>
-          Password
-          <input
-            type="password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            required
-          />
-        </label>
-        {errors.password && <p>{errors.password}</p>}
-        <button type="submit">Log In</button>
+      <form onSubmit={handleSubmit} className="login-form">
+        <div className="form-group">
+          <label className="form-label">
+            Email
+            <input
+              type="text"
+              className="form-input"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              required
+            />
+          </label>
+          {errors.email && <p className="error-message">{errors.email}</p>}
+        </div>
+        <div className="form-group">
+          <label className="form-label">
+            Password
+            <input
+              type="password"
+              className="form-input"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              required
+            />
+          </label>
+          {errors.password && <p className="error-message">{errors.password}</p>}
+        </div>
+        <div className="form-actions">
+          <button type="submit" className="submit-button">Log In</button>
+          <button type="button" onClick={handleDemoLogin} className="demo-button">Log In as Demo User</button>
+        </div>
       </form>
-    </>
+    </div>
   );
 }
 

@@ -12,16 +12,45 @@
 .clothing-tile img {
     width: 300px;
     height: 350px;
-    margin-bottom: 15px;
+    margin-bottom: 5px;
 }
 
-.clothing-tile h3 {
+.date-container {
     width: 100%;
-    text-align: center;
-}
-
-.clothing-tile p{
-    width: 100%;
+    border-bottom: 1px solid rgb(232, 227, 227);
+    margin-bottom: 5px;
     text-align: left;
-    margin-left: 55px;
+}
+
+.clothing-date {
+    color: grey;
+    padding: 5px 0;
+}
+
+.clothing-info {
+    width: 100%;
+}
+
+.brand-size {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 5px;
+    font-weight: bolder;
+    font-size: 15px;
+}
+
+.brand-size p {
+    display: inline-block;
+    margin: 0;
+}
+
+.clothing-info h3,
+.clothing-info p {
+    text-align: left;
+    margin: 0;
+}
+
+.clothing-info p {
+    margin-bottom: 5px;
 }

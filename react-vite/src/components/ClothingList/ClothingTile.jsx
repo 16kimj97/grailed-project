@@ -3,14 +3,22 @@ import './ClothingTile.css'
 const ClothingTile = ({ clothes }) => {
     return (
         <div className="clothing-tile">
-            <h3>{clothes.title}</h3>
             {clothes.images && (
-                <img src={clothes.images} alt={clothes.title} style={{ maxWidth: '100%' }} />
+                <img src={clothes.images} alt={clothes.title} />
             )}
-            <p><strong>Brand:</strong> {clothes.brand}</p>
-            <p><strong>Size:</strong> {clothes.size}</p>
-            <p><strong>Condition:</strong> {clothes.condition}</p>
-            <p><strong>Price:</strong> ${clothes.price}</p>
+            <div className="date-container">
+                <div className="clothing-date">
+                    Listed on: {new Date(clothes.date_listed).toLocaleDateString()}
+                </div>
+            </div>
+            <div className="clothing-info">
+                <div className="brand-size">
+                    <p><strong></strong> {clothes.brand}</p>
+                    <p><strong></strong> {clothes.size}</p>
+                </div>
+                <p>{clothes.title}</p>
+                <p><strong></strong> ${clothes.price}</p>
+            </div>
         </div>
     );
 };

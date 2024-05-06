@@ -10,6 +10,7 @@ import CreateClothing from '../components/CreateClothing/CreateClothing';
 import ClothingCategory from '../components/ClothingList/ClothingCategory';
 import UserOffers from '../components/UserOffers/UserOffers';
 import UpdateOffers from '../components/UserOffers/UpdateOffers/UpdateOffers';
+import OfferListByClothing from '../components/UserClothing/OfferByClothing';
 
 export const router = createBrowserRouter([
   {
@@ -62,6 +63,10 @@ export const router = createBrowserRouter([
       {
         path: "/update-offer/:offerId",
         element: <UpdateOffers />,
+      },
+      {
+        path: "/offer/:clothingId",
+        element: <OfferListByClothing />
       },
     ],
   },

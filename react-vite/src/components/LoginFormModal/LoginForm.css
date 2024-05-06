@@ -1,0 +1,65 @@
+.login-modal-container {
+    background: #fff;
+    padding: 2rem;
+    border-radius: 8px;
+    box-shadow: 0 4px 16px rgba(0,0,0,0.2);
+    width: 100%;
+    max-width: 400px;
+    margin: auto;
+  }
+
+  .login-modal-container h1 {
+    color: #333;
+    text-align: center;
+    margin-bottom: 1.5rem;
+  }
+
+  .login-form .form-group {
+    margin-bottom: 1rem;
+  }
+
+  .login-form .form-label {
+    display: block;
+    color: #666;
+  }
+
+  .login-form .form-input {
+    width: 100%;
+    padding: 0.8rem;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+  }
+
+  .login-form .error-message {
+    color: red;
+    font-size: 0.85rem;
+    margin-bottom: 1rem;
+  }
+
+  .login-form .form-actions .submit-button,
+  .login-form .form-actions .demo-button {
+    width: 100%;
+    padding: 1rem;
+    border: none;
+    border-radius: 4px;
+    background-color: #007BFF;
+    color: white;
+    cursor: pointer;
+    font-size: 1rem;
+    margin-bottom: 10px;
+    transition: background-color 0.3s;
+  }
+
+  .login-form .form-actions .submit-button:hover,
+  .login-form .form-actions .demo-button:hover {
+    background-color: #0056b3;
+  }
+
+  .login-form .form-actions .demo-button {
+    background-color: #6c757d;
+  }
+
+  .login-form .form-actions .demo-button:hover {
+    background-color: #545b62;
+  }

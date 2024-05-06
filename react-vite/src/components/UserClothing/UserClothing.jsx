@@ -1,18 +1,28 @@
+import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useEffect } from "react";
 import { thunkFetchCurrent } from "../../redux/user";
-import { Link } from 'react-router-dom';
+import { Link } from "react-router-dom";
 import './UserClothing.css';
 import DeleteClothing from "../DeleteClothing/DeleteClothing";
 import OpenModalMenuItem from '../Navigation/OpenModalMenuItem';
+import OfferListByClothing from "./OfferByClothing";
+import { useNavigate } from 'react-router-dom';
+
 
 const UserClothing = () => {
     const dispatch = useDispatch();
     const clothing = useSelector(state => state.user.clothing);
+    const [showOffers, setShowOffers] = useState(null);
+    const navigate = useNavigate();
 
     useEffect(() => {
         dispatch(thunkFetchCurrent());
     }, [dispatch]);
+
+    const handleUpdateClick = (itemId) => {
+        navigate(`/update/${itemId}`);
+    };
+
 
     return (
         <>
@@ -33,9 +43,20 @@ const UserClothing = () => {
                         <div className="item-size">{item.size}</div>
                     </div>
                     <div className="button-container">
-                        <Link to={`/update/${item.id}`} className="update-button">
+                        <button
+                            onClick={() => setShowOffers(prev => prev === item.id ? null : item.id)}
+                            className="offer-button"
+                        >
+                            {showOffers === item.id ? "Hide Offers" : "Offers"}
+                        </button>
+
+                        <button
+                            onClick={() => handleUpdateClick(item.id)}
+                            className="update-button"
+                        >
                             Update
-                        </Link>
+                        </button>
+
                         <button className="delete-button">
                             <OpenModalMenuItem
                                 itemText="Delete"
@@ -43,6 +64,12 @@ const UserClothing = () => {
                             />
                         </button>
                     </div>
+
+                    {showOffers === item.id && (
+                        <div className="offer-list">
+                            <OfferListByClothing clothingId={item.id} />
+                        </div>
+                    )}
                 </div>
             ))}
         </div>
@@ -50,4 +77,4 @@ const UserClothing = () => {
     );
 }
 
-export default UserClothing;
+export default UserClothing

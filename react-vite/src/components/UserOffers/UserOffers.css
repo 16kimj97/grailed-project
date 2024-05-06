@@ -2,7 +2,15 @@
     width: 100%;
     padding: 20px;
     justify-content: center;
+    max-width: 1200px;
+    margin-left: 300px;
 }
+.buttons-container {
+    align-items: center;
+    margin-top: 10px;
+    text-align: center;
+}
+
 
 .offers-heading {
     font-size: 30px;
@@ -74,19 +82,21 @@
     color: #666;
 }
 
-.offer-item .delete-offers {
-    list-style-type: none;
-    background-color: red;
+.delete-offer-button, .update-offer-button {
+    background-color: black;
     color: white;
     max-width: 85px;
-    padding: 14px 13px;
+    padding: 13px 13px;
     border: none;
-    border-radius: 5px;
     text-align: center;
     text-decoration: none;
     display: inline-block;
     cursor: pointer;
     margin-left: 12px;
-    margin-top: 15px;
     align-items: center;
+}
+
+.delete-offer-button:hover, .update-offer-button:hover {
+    background-color: white;
+    color: black;
 }
