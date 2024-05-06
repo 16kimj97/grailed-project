@@ -61,3 +61,28 @@
     font-size: 1.2rem;
     padding: 50px;
 }
+
+
+.create-offer-button {
+    margin-top: 20px;
+    display: flex;
+    justify-content: center;
+}
+
+.create-offer-button button {
+    background-color: black;
+    border: none;
+    color: white;
+    padding: 12px 24px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    cursor: pointer;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+}
+
+.create-offer-button button:hover {
+    transform: scale(1.05);
+}

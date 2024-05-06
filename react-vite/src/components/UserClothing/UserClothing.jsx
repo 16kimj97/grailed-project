@@ -42,9 +42,9 @@ const UserClothing = () => {
                             {showOffers === item.id ? "Hide Offers" : "Offers"}
                         </button>
 
-                        <Link to={`/update/${item.id}`} className="update-button">
+                        <button to={`/update/${item.id}`} className="update-button">
                             Update
-                        </Link>
+                        </button>
 
                         <button className="delete-button">
                             <OpenModalMenuItem
