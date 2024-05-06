@@ -20,7 +20,6 @@ class Clothing(db.Model):
     status = db.Column(db.String(20), nullable=False, default="Available")
     gender = db.Column(db.String(20), nullable=False, default="Unisex")
     offers = db.relationship('Offer', backref='clothing', lazy=True, cascade="all, delete-orphan")
-    reviews = db.relationship('Review', backref='clothing', lazy=True)
     wishlist_items = db.relationship('WishlistItem', backref='clothing', lazy=True)
 
     def to_dict(self):
