@@ -1,11 +1,9 @@
 import { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { thunkUpdateStatus } from '../../../redux/offer';
-import { useModal } from '../../../context/Modal';
 
 const UpdateStatusForm = ({ offerId, onClose }) => {
   const dispatch = useDispatch();
-  const { setModalContent } = useModal();
 
   const offer = useSelector(state => state.offers && state.offers[offerId]);
 
