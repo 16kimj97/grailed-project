@@ -40,7 +40,7 @@ def seed_offers():
         ),
         Offer(
             clothing_id=6,
-            user_id=5,
+            user_id=2,
             offer_price=30.00,
             shipping_details="Standard shipping",
             status="Pending",
@@ -54,7 +54,7 @@ def seed_offers():
         ),
         Offer(
             clothing_id=8,
-            user_id=6,
+            user_id=3,
             offer_price=50.00,
             shipping_details="Free shipping",
             status="Rejected",
