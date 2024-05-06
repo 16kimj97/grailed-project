@@ -63,9 +63,11 @@ export const thunkFetchOfferById = (id) => async dispatch => {
     const res = await fetch(`/api/offers/clothing/${id}`)
     // console.log(res)
     if (res.ok){
-      const offer = await res.json()
-      dispatch(fetchOfferId(offer))
-      return offer
+      const offers = await res.json();
+      if (offers && offers.length > 0) {
+          dispatch(fetchOfferId(offers[0]));
+      }
+      return offers
     }
 }
 

@@ -1,12 +1,16 @@
-import { useEffect } from "react"; // Importing useEffect
+import { useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { useModal } from '../../context/Modal'
 import './DeleteClothing.css'
 import { thunkDeleteClothing, thunkFetchClothing } from "../../redux/clothing";
+import { useSelector } from "react-redux";
+import { useNavigate } from 'react-router-dom';
 
 function DeleteClothing({ clothingId }) {
     const { closeModal } = useModal()
     const dispatch = useDispatch()
+    const clothing = useSelector(state => state.clothing);
+    const navigate = useNavigate();
 
     async function cancel(){
         closeModal()
@@ -15,6 +19,7 @@ function DeleteClothing({ clothingId }) {
     async function confirm() {
         await dispatch(thunkDeleteClothing(clothingId))
         closeModal()
+        navigate(`/`);
     }
 
     useEffect(() => {

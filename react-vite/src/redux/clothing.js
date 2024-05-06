@@ -46,18 +46,15 @@ export const thunkCreateClothing = (clothing) => async dispatch => {
 
 export const thunkDeleteClothing = (clothingId) => async dispatch => {
     const res = await fetch(`/api/clothing/${clothingId}`, {
-        method : 'DELETE',
+        method: 'DELETE',
         headers: {
             'Content-Type': 'application/json'
         }
-    })
+    });
     if(res.ok){
-        const confirmed = await res.json()
-        dispatch(deleteClothing(confirmed))
-        return confirmed
-    }
-    else {
-        return "delete error"
+        dispatch(deleteClothing(clothingId));
+    } else {
+        console.error("Delete error");
     }
 }
 
