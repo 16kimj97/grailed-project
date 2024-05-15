@@ -14,5 +14,5 @@ This Clone is a web application that replicates the functionality and user exper
 
 ## User SignUp
 
-![SignUp Gif]https://media1.giphy.com/media/v1.Y2lkPTc5MGI3NjExNnVtbm43cTlrcmI3aXVsejFoZHg2c2xzMjBuY3B5cndqdDYyeTY3ayZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/LUFcZO6kyYNa2RmGpD/giphy.gif
+![SignUp Gif](https://media1.giphy.com/media/v1.Y2lkPTc5MGI3NjExNnVtbm43cTlrcmI3aXVsejFoZHg2c2xzMjBuY3B5cndqdDYyeTY3ayZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/LUFcZO6kyYNa2RmGpD/giphy.gif)
 
