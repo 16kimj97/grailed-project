@@ -10,4 +10,9 @@ This Clone is a web application that replicates the functionality and user exper
 ### User Login
 ![Login Gif](https://media4.giphy.com/media/v1.Y2lkPTc5MGI3NjExZHFpb25nanNnZGR1M2NvdGt2a3gzNnZnb3FyOWt3c2ZqcjJuZzhnYSZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/G8KSAFKrcrKRotDvjA/giphy.gif)
 
+- User is able to log in using demo-user, or with previous sign up information.
+
+## User SignUp
+
+![SignUp Gif]https://media1.giphy.com/media/v1.Y2lkPTc5MGI3NjExNnVtbm43cTlrcmI3aXVsejFoZHg2c2xzMjBuY3B5cndqdDYyeTY3ayZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/LUFcZO6kyYNa2RmGpD/giphy.gif
 
