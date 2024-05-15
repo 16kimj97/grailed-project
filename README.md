@@ -16,3 +16,10 @@ This Clone is a web application that replicates the functionality and user exper
 
 ![SignUp Gif](https://media1.giphy.com/media/v1.Y2lkPTc5MGI3NjExNnVtbm43cTlrcmI3aXVsejFoZHg2c2xzMjBuY3B5cndqdDYyeTY3ayZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/LUFcZO6kyYNa2RmGpD/giphy.gif)
 
+- User is able to sign up using user information, User is logged in upon sign up
+
+## Get Categorized Clothing 
+
+![GetClothing Gif](https://media0.giphy.com/media/v1.Y2lkPTc5MGI3NjExcHlqMDUzYXRoMnl1MDFqeTBhYnd6czVwNnNxbjVsbXVsaXU0Nzl5diZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/p2eGuEB7jvm8Wxn3JD/giphy.gif)
+
+- User is able to see all clothing categorized
