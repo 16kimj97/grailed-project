@@ -1,15 +1,25 @@
 import { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { thunkUpdateStatus } from '../../../redux/offer';
+import { thunkFetchOfferById, thunkUpdateStatus } from '../../../redux/offer';
 
 const UpdateStatusForm = ({ offerId, onClose }) => {
   const dispatch = useDispatch();
 
+  // Ensure the offer data is retrieved from the Redux store.
   const offer = useSelector(state => state.offers && state.offers[offerId]);
 
-  const [status, setStatus] = useState(offer?.status || '');
+  // Initialize status with an empty string.
+  const [status, setStatus] = useState('');
 
   useEffect(() => {
+    // Dispatch an action to fetch the offer by ID if not already in the store.
+    if (!offer) {
+      dispatch(thunkFetchOfferById(offerId));
+    }
+  }, [offerId, dispatch, offer]);
+
+  useEffect(() => {
+    // Update the status state when the offer data changes and is available.
     if (offer && offer.status) {
       setStatus(offer.status);
     }
@@ -26,6 +36,10 @@ const UpdateStatusForm = ({ offerId, onClose }) => {
     await dispatch(thunkUpdateStatus(updatedOffer, offerId));
     onClose();
   };
+
+  if (!offer) {
+    return <div>Loading...</div>;
+  }
 
   return (
     <form onSubmit={handleSubmit}>
