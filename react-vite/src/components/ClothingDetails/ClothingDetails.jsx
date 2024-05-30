@@ -1,8 +1,8 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { useParams } from 'react-router-dom';
 import { thunkFetchClothingById } from '../../redux/clothing';
-import OpenModalCreate from '../UserOffers/CreateOffers/OpenModalCreateOffers';
+import CreateOffer from '../UserOffers/CreateOffers/CreateOffers';
 import './ClothingDetails.css';
 import ReviewComponent from '../Reviews/Reviews';
 
@@ -10,6 +10,8 @@ const ClothingDetails = () => {
     const { clothingId } = useParams();
     const dispatch = useDispatch();
     const parsedId = parseInt(clothingId);
+
+    const [isOfferModalOpen, setIsOfferModalOpen] = useState(false);
 
     useEffect(() => {
         if (clothingId) {
@@ -48,11 +50,19 @@ const ClothingDetails = () => {
 
             {currentUser && currentUser.id !== clothing.user_id && (
                 <div className="create-offer-button">
-                    <OpenModalCreate clothingId={clothingId} />
+                    <button onClick={() => setIsOfferModalOpen(true)}>Create Offer</button>
                 </div>
             )}
 
-        <ReviewComponent revieweeId={clothing.user_id} />
+            {isOfferModalOpen && (
+                <div className="modal">
+                    <div className="modal-content">
+                        <CreateOffer clothingId={parsedId} onClose={() => setIsOfferModalOpen(false)} />
+                    </div>
+                </div>
+            )}
+
+            <ReviewComponent revieweeId={clothing.user_id} />
         </div>
     );
 };

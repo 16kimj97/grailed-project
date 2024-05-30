@@ -14,7 +14,6 @@ function DeleteOffers({offerId}) {
     async function confirm() {
         await dispatch(thunkDeleteOffers(offerId))
         closeModal()
-        window.location.reload();
     }
 
     return (

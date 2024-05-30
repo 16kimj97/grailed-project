@@ -3,7 +3,7 @@ import { useDispatch } from 'react-redux';
 import { thunkCreateOffer } from '../../../redux/offer';
 import './CreateOffers.css';
 
-const CreateOffer = ({ clothingId }) => {
+const CreateOffer = ({ clothingId, onClose }) => {
     const dispatch = useDispatch();
 
     const [offerPrice, setOfferPrice] = useState('');
@@ -23,9 +23,11 @@ const CreateOffer = ({ clothingId }) => {
             alert('Offer created successfully!');
             setOfferPrice('');
             setShippingDetails('');
+            onClose();  // Close modal after successful submission
         } catch (error) {
             console.error('Error creating offer:', error);
             alert('An error occurred while creating the offer.');
+            onClose();
         }
     };
 

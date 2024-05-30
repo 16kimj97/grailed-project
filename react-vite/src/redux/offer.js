@@ -73,19 +73,20 @@ export const thunkFetchOfferById = (id) => async dispatch => {
 
 
 export const thunkDeleteOffers = (offerId) => async dispatch => {
-    const res = await fetch(`/api/offers/${offerId}`, {
-        method : 'DELETE',
-        headers: {
-            'Content-Type': 'application/json'
-        }
-    });
+  const res = await fetch(`/api/offers/${offerId}`, {
+      method: 'DELETE',
+      headers: {
+          'Content-Type': 'application/json'
+      }
+  });
 
-    if (res.ok){
-        const offer = await res.json()
-        dispatch(deleteOffers(offer))
-        return offer
-    }
-}
+  if (res.ok) {
+      dispatch(deleteOffers(offerId));
+  } else {
+      const error = await res.json();
+      console.error("Error:", error);
+  }
+};
 
 export const thunkUpdateOffer = (offer, offerId) => async (dispatch) => {
     const res = await fetch(`/api/offers/${offerId}`, {
@@ -131,53 +132,51 @@ const initialState = {
   offers: [],
 };
 
-  const offerReducer = (state = initialState, action) => {
-    switch (action.type) {
+const offerReducer = (state = initialState, action) => {
+  switch (action.type) {
       case DELETE_OFFERS: {
-        const newOffers = state.offers.filter(offer => offer.id !== action.payload);
-        return {
-          ...state,
-          offers: newOffers,
-        };
+          const newOffers = state.offers.filter(offer => offer.id !== action.payload);
+          return {
+              ...state,
+              offers: newOffers,
+          };
       }
       case UPDATE_OFFERS:
       case UPDATE_STATUS: {
-        const updatedOffer = action.payload;
-        const updatedOffers = state.offers.map(offer => {
-          if (offer.id === updatedOffer.id) {
-            return updatedOffer;
-          }
-          return offer;
-        });
-        return {
-          ...state,
-          offers: updatedOffers,
-        };
+          const updatedOffer = action.payload;
+          const updatedOffers = state.offers.map(offer => {
+              if (offer.id === updatedOffer.id) {
+                  return updatedOffer;
+              }
+              return offer;
+          });
+          return {
+              ...state,
+              offers: updatedOffers,
+          };
       }
       case FETCH_OFFER_ID:
-        return {
-          ...state,
-          [action.payload.id]: action.payload
-      }
+          return {
+              ...state,
+              [action.payload.id]: action.payload
+          }
       case FETCH_OFFER_BY_CLOTHING: {
-        const offersByClothingId = action.payload;
-        return {
-          ...state,
-          offers: offersByClothingId,
-        };
+          const offersByClothingId = action.payload;
+          return {
+              ...state,
+              offers: offersByClothingId,
+          };
       }
       case CREATE_OFFER: {
-        const newOffer = action.payload;
-        return {
-          ...state,
-          offers: [...state.offers, newOffer],
-        };
+          const newOffer = action.payload;
+          return {
+              ...state,
+              offers: [...state.offers, newOffer],
+          };
       }
       default:
-        return state;
-    }
-  };
-
-
+          return state;
+  }
+};
 
 export default offerReducer;

@@ -7,8 +7,8 @@ const UpdateStatusForm = ({ offerId, onClose }) => {
 
   const offer = useSelector(state => state.offers && state.offers[offerId]);
 
-  // Initialize status with an empty string.
   const [status, setStatus] = useState('');
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     if (!offer) {
@@ -24,6 +24,7 @@ const UpdateStatusForm = ({ offerId, onClose }) => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setLoading(true);
 
     const updatedOffer = {
       ...offer,
@@ -31,6 +32,7 @@ const UpdateStatusForm = ({ offerId, onClose }) => {
     };
 
     await dispatch(thunkUpdateStatus(updatedOffer, offerId));
+    setLoading(false);
     onClose();
   };
 
@@ -44,7 +46,9 @@ const UpdateStatusForm = ({ offerId, onClose }) => {
         <label>Status:</label>
         <input type="text" value={status} onChange={(e) => setStatus(e.target.value)} />
       </div>
-      <button type="submit">Update Status</button>
+      <button type="submit" disabled={loading}>
+        {loading ? 'Updating...' : 'Update Status'}
+      </button>
     </form>
   );
 };
