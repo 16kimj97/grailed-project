@@ -13,7 +13,7 @@ function CreateClothing() {
     const [size, setSize] = useState('');
     const [brand, setBrand] = useState('');
     const [condition, setCondition] = useState('');
-    const [images, setImages] = useState([]);
+    const [images, setImages] = useState(null);
     const [dateListed, setDateListed] = useState('');
     const [gender, setGender] = useState('');
     const [errors, setErrors] = useState({});
@@ -35,8 +35,12 @@ function CreateClothing() {
         if (!condition) newErrors.condition = "Condition is required";
         if (!dateListed) newErrors.dateListed = "Date listed is required";
         if (!gender) newErrors.gender = "Gender is required";
-        if (!images.length) newErrors.images = "image is required";
+        if (!images) newErrors.images = "Image is required";
         return newErrors;
+    };
+
+    const handleImageChange = (e) => {
+        setImages(e.target.files[0]);
     };
 
     const handleSubmit = async (e) => {
@@ -55,7 +59,8 @@ function CreateClothing() {
             formData.append('condition', condition);
             formData.append('date_listed', dateListed);
             formData.append('gender', gender);
-            formData.append('images', images)
+            formData.append('images', images);
+
             const newClothing = await dispatch(thunkCreateClothing(formData));
             if (newClothing) {
                 navigate(`/clothing/${newClothing.id}`);
@@ -103,7 +108,7 @@ function CreateClothing() {
                 <div className="form-group">
                     <label>Condition:</label>
                     <select value={condition} onChange={(e) => setCondition(e.target.value)}>
-                    <option value="">Select Condition</option>
+                        <option value="">Select Condition</option>
                         <option value="New">New</option>
                         <option value="Like New">Like New</option>
                         <option value="Used">Used</option>
@@ -128,7 +133,7 @@ function CreateClothing() {
                 </div>
                 <div className="form-group">
                     <label>Images:</label>
-                    <input type="text" value={images} onChange={(e) => setImages(e.target.value)} />
+                    <input type="file" onChange={handleImageChange} accept='image/*'/>
                     {submitted && errors.images && <div className="error">{errors.images}</div>}
                 </div>
                 <button type="submit">Create Clothing Item</button>

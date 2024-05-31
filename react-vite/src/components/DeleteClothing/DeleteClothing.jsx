@@ -19,7 +19,7 @@ function DeleteClothing({ clothingId }) {
     async function confirm() {
         await dispatch(thunkDeleteClothing(clothingId))
         closeModal()
-        navigate(`/`);
+        window.location.reload();
     }
 
     useEffect(() => {

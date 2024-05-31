@@ -5,12 +5,12 @@
     max-width: 1200px;
     margin-left: 300px;
 }
-
 .buttons-container {
     align-items: center;
     margin-top: 10px;
     text-align: center;
 }
+
 
 .offers-heading {
     font-size: 30px;
@@ -60,7 +60,7 @@
 
 .item-image-link img {
     max-width: 100%;
-    width: 400px;
+    width: 400;
     height: 300px;
     object-fit: cover;
     border-radius: 5px;

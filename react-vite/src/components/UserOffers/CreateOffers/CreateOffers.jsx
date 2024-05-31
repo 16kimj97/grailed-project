@@ -23,7 +23,7 @@ const CreateOffer = ({ clothingId, onClose }) => {
             alert('Offer created successfully!');
             setOfferPrice('');
             setShippingDetails('');
-            onClose();  // Close modal after successful submission
+            onClose();
         } catch (error) {
             console.error('Error creating offer:', error);
             alert('An error occurred while creating the offer.');

@@ -34,8 +34,10 @@ export const thunkCreateClothing = (clothing) => async dispatch => {
         method: 'POST',
         body: clothing
     })
+    console.log('===========>, before await')
     if(res.ok){
         const clothing = await res.json()
+        console.log("===============>, after await")
         dispatch(createClothing(clothing))
         return clothing
     }

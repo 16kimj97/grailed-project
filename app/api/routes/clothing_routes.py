@@ -4,6 +4,8 @@ from flask_login import current_user, login_required
 from datetime import datetime
 from app.forms.add_clothing import AddClothingForm
 from app.forms.update_clothing import UpdateClothingForm
+from app.aws_helpers import upload_file_to_s3, get_unique_filename, remove_file_from_s3
+
 
 clothing_routes = Blueprint('clothing', __name__)
 
@@ -20,6 +22,17 @@ def post_clothing():
     form['csrf_token'].data = request.cookies['csrf_token']
 
     if form.validate_on_submit():
+        image_url = form.data["images"]
+        image_url.filename = get_unique_filename(image_url.filename)
+        preview_img_upload = upload_file_to_s3(image_url)
+
+        print(preview_img_upload)
+
+        if 'url' not in preview_img_upload:
+            return jsonify({"message": "no url"}), 400
+
+        url = preview_img_upload['url']
+
         params = {
             'user_id': current_user.id,
             'title': form.data['title'],
@@ -28,7 +41,7 @@ def post_clothing():
             'size': form.data['size'],
             'brand': form.data['brand'],
             'condition': form.data['condition'],
-            'images': form.data['images'],
+            'images' : url,
             'gender': form.data['gender'],
             'date_listed': datetime.utcnow()
         }
@@ -72,13 +85,26 @@ def edit_clothing(clothingId):
     form['csrf_token'].data = request.cookies['csrf_token']
 
     if form.validate_on_submit():
+
+        remove_file_from_s3(clothing.images) if '/' in clothing.images else None
+
+        preview_img = form.data['images']
+        if(preview_img):
+            preview_img.filename = get_unique_filename(preview_img.filename)
+            preview_img_upload = upload_file_to_s3(preview_img)
+
+            if 'url' not in preview_img_upload:
+                    return jsonify({"message": "no url"}), 400
+
+        url = preview_img_upload['url']
+
         clothing.title = form.data['title']
         clothing.description = form.data['description']
         clothing.price = form.data['price']
         clothing.size = form.data['size']
         clothing.brand = form.data['brand']
         clothing.condition = form.data['condition']
-        clothing.images = form.data['images']
+        clothing.images = url
         clothing.gender = form.data['gender']
         clothing.status = form.data['status']
 

@@ -16,7 +16,7 @@ const UpdateClothing = () => {
     const [size, setSize] = useState('');
     const [brand, setBrand] = useState('');
     const [condition, setCondition] = useState('');
-    const [images, setImages] = useState('');
+    const [images, setImages] = useState(null);
     const [dateListed, setDateListed] = useState('');
     const [status, setStatus] = useState('');
     const [gender, setGender] = useState('');
@@ -36,7 +36,6 @@ const UpdateClothing = () => {
             setSize(clothing.size || '');
             setBrand(clothing.brand || '');
             setCondition(clothing.condition || '');
-            setImages(clothing.images || '');
             setDateListed(clothing.date_listed || '');
             setStatus(clothing.status || '');
             setGender(clothing.gender || '');
@@ -75,9 +74,6 @@ const UpdateClothing = () => {
             case 'condition':
                 setCondition(value);
                 break;
-            case 'images':
-                setImages(value);
-                break;
             case 'date_listed':
                 setDateListed(value);
                 break;
@@ -87,10 +83,13 @@ const UpdateClothing = () => {
             case 'gender':
                 setGender(value);
                 break;
-
             default:
                 break;
         }
+    };
+
+    const handleImageChange = (e) => {
+        setImages(e.target.files[0]);
     };
 
     const handleSubmit = async (e) => {
@@ -107,7 +106,9 @@ const UpdateClothing = () => {
             formData.append('date_listed', dateListed);
             formData.append('status', status);
             formData.append('gender', gender);
-            formData.append('images', images);
+            if (images) {
+                formData.append('images', images);
+            }
 
             await dispatch(thunkUpdateClothing(formData, parsedId));
             dispatch(thunkFetchClothing());
@@ -157,7 +158,7 @@ const UpdateClothing = () => {
                 {error.condition && <span className="error">{error.condition}</span>}
 
                 <label htmlFor="images">Images:</label>
-                <input type="text" id="images" name="images" value={images} onChange={handleChange} />
+                <input type="file" id="images" name="images" onChange={handleImageChange} />
                 {error.images && <span className="error">{error.images}</span>}
 
                 <label htmlFor="date_listed">Date Listed:</label>
