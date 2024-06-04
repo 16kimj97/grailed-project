@@ -11,7 +11,7 @@ This Clone is a web application that replicates the functionality and user exper
 ## Grailed API Documentation
 
 ## Base URL:
-> [https://rainforest-r7d3.onrender.com/](https://grailed-project.onrender.com/)
+> [https://grailed-project.onrender.com/]
 
 This will guide you through the endpoints available on my website!
 
