@@ -22,7 +22,7 @@ def get_reviews_by_reviewee(reviewee_id):
     reviews = Review.query.filter_by(reviewee_id=reviewee_id).all()
     return jsonify([review.to_dict() for review in reviews])
 
-@review_routes.route('/<int:reviewee_id>', methods=['POST'])
+@review_routes.route('/<int:reviewee_id>/new', methods=['POST'])
 @login_required
 def create_review(reviewee_id):
     data = request.get_json()

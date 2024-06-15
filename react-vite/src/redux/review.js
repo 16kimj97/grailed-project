@@ -1,9 +1,15 @@
 const GET_REVIEW = 'GET_REVIEW'
+const ADD_REVIEW = 'ADD_REVIEW'
 
 export const getReview = (reviews, revieweeId) => ({
     type: GET_REVIEW,
     payload: { reviews, revieweeId }
 });
+
+export const addReview = review => ({
+    type: ADD_REVIEW,
+    payload: review
+})
 
 export const thunkGetReview = (revieweeId) => async (dispatch) => {
     try {
@@ -21,6 +27,22 @@ export const thunkGetReview = (revieweeId) => async (dispatch) => {
     }
 };
 
+export const thunkAddReview = (revieweeId, Review) => async dispatch => {
+    const formData = new FormData()
+    formData.append('body', comment)
+    const res = await fetch(`/api/reviews/${revieweeId}/new`, {
+        method: 'POST',
+        body: FormData
+    })
+    if(res.ok){
+        const review = await res.json()
+        dispatch (addReview(review))
+        return review
+    }
+    else{
+        return "add review error"
+    }
+}
 
 const reviewReducer = (state = {}, action) => {
     let reviews, revieweeId;
