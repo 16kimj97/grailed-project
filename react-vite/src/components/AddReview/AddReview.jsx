@@ -1,6 +1,8 @@
 import { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { thunkAddReview } from '../../redux/review';
+import './AddReview.css';
+
 
 const AddReview = ({ revieweeId }) => {
     const [body, setBody] = useState('');
