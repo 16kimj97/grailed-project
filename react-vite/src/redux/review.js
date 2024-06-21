@@ -1,5 +1,7 @@
 const GET_REVIEW = 'GET_REVIEW'
 const ADD_REVIEW = 'ADD_REVIEW'
+const DELETE_REVIEW = 'DELETE_REVIEW';
+
 
 export const getReview = (reviews, revieweeId) => ({
     type: GET_REVIEW,
@@ -10,6 +12,12 @@ export const addReview = review => ({
     type: ADD_REVIEW,
     payload: review
 })
+
+export const deleteReview = (reviewId) => ({
+    type: DELETE_REVIEW,
+    payload: reviewId
+});
+
 
 export const thunkGetReview = (revieweeId) => async (dispatch) => {
     try {
@@ -44,6 +52,25 @@ export const thunkAddReview = (revieweeId, Review) => async dispatch => {
     }
 }
 
+export const thunkDeleteReview = (reviewId) => async (dispatch) => {
+    try {
+        const res = await fetch(`/api/reviews/${reviewId}`, {
+            method: 'DELETE'
+        });
+
+        if (!res.ok) {
+            throw new Error('Failed to delete review');
+        }
+
+        dispatch(deleteReview(reviewId));
+        return 'Review deleted successfully';
+    } catch (error) {
+        console.error('Error deleting review:', error.message);
+        return 'Delete review error';
+    }
+};
+
+
 const reviewReducer = (state = {}, action) => {
     let reviews, revieweeId;
 
@@ -54,6 +81,17 @@ const reviewReducer = (state = {}, action) => {
                 ...state,
                 [revieweeId]: reviews
             };
+        case ADD_REVIEW:
+            reviews = state[action.payload.revieweeId] || [];
+            return {
+                ...state,
+                [action.payload.revieweeId]: [...reviews, action.payload]
+            };
+        case DELETE_REVIEW:
+            return Object.keys(state).reduce((newState, revieweeId) => {
+                newState[revieweeId] = state[revieweeId].filter(review => review.id !== action.payload);
+                return newState;
+            }, {});
         default:
             return state;
     }
