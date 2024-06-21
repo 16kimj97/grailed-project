@@ -1,5 +1,6 @@
 import { useDispatch, useSelector } from 'react-redux';
 import { thunkGetReview, thunkDeleteReview } from './path-to-your-thunks';
+import './ReviewList.css';
 
 const ReviewList = ({ revieweeId }) => {
     const dispatch = useDispatch();

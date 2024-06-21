@@ -1,0 +1,45 @@
+.review-list {
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 20px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    background-color: #f9f9f9;
+}
+
+.review-list h2 {
+    text-align: center;
+    color: #333;
+}
+
+.review-list ul {
+    list-style: none;
+    padding: 0;
+}
+
+.review-list li {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+    border-bottom: 1px solid #ddd;
+}
+
+.review-list p {
+    margin: 0;
+    color: #555;
+}
+
+.review-list button {
+    padding: 5px 10px;
+    border: none;
+    background-color: #e74c3c;
+    color: #fff;
+    border-radius: 3px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.review-list button:hover {
+    background-color: #c0392b;
+}
