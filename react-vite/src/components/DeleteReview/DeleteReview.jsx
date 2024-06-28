@@ -1,5 +1,7 @@
 import { useDispatch, useSelector } from 'react-redux';
-import { thunkGetReview, thunkDeleteReview } from './path-to-your-thunks';
+import { thunkGetReview } from './path-to-your-thunks';
+import OpenModalButton from '../../context/OpenModalButton';
+import DeleteConfirmationModal from './DeleteConfirmationModal';
 import './ReviewList.css';
 
 const ReviewList = ({ revieweeId }) => {
@@ -10,12 +12,8 @@ const ReviewList = ({ revieweeId }) => {
         dispatch(thunkGetReview(revieweeId));
     }, [dispatch, revieweeId]);
 
-    const handleDelete = (reviewId) => {
-        dispatch(thunkDeleteReview(reviewId));
-    };
-
     return (
-        <div>
+        <div className="review-list">
             <h2>Reviews</h2>
             {reviews.length === 0 ? (
                 <p>No reviews available.</p>
@@ -24,7 +22,15 @@ const ReviewList = ({ revieweeId }) => {
                     {reviews.map((review) => (
                         <li key={review.id}>
                             <p>{review.body}</p>
-                            <button onClick={() => handleDelete(review.id)}>Delete</button>
+                            <OpenModalButton
+                                buttonText="Delete"
+                                modalComponent={
+                                    <DeleteConfirmationModal
+                                        reviewId={review.id}
+                                        onClose={() => setModalContent(null)}
+                                    />
+                                }
+                            />
                         </li>
                     ))}
                 </ul>
