@@ -5,11 +5,6 @@ from datetime import datetime
 
 wishlist_routes = Blueprint('wishlist', __name__)
 
-@wishlist_routes.routes('/', methods=['GET'])
-@login_required
-def get_all_wishlists():
-    wishlists = WishList.query.all()
-    return jsonify([wishlist.to_dict() for wishlist in wishlists])
 
 @wishlist_routes.route('/', methods=['GET'])
 @login_required
