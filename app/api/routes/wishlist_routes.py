@@ -14,3 +14,5 @@ def get_wishlists_by_user():
     return jsonify([wishlist.to_dict() for wishlist in wishlists])
 
 @wishlist_routes.route('/delete')
+@login_required
+def delete_wishlists():
