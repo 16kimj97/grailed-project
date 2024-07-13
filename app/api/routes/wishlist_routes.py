@@ -10,3 +10,10 @@ wishlist_routes = Blueprint('wishlist', __name__)
 def get_all_wishlists():
     wishlists = WishList.query.all()
     return jsonify([wishlist.to_dict() for wishlist in wishlists])
+
+@wishlist_routes.route('/', methods=['GET'])
+@login_required
+def get_wishlists_by_user():
+    user_id = current_user.id
+    wishlists = WishList.query.filter_by(user_id=user_id).all()
+    return jsonify([wishlist.to_dict() for wishlist in wishlists])
