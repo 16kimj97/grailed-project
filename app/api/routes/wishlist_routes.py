@@ -12,3 +12,5 @@ def get_wishlists_by_user():
     user_id = current_user.id
     wishlists = WishList.query.filter_by(user_id=user_id).all()
     return jsonify([wishlist.to_dict() for wishlist in wishlists])
+
+@wishlist_routes.route('/delete')
